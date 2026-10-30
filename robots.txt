@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /demo-dental/
+Sitemap: https://angerlessdev.github.io/sitemap.xml
