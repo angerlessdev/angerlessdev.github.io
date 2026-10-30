@@ -1,5 +1,23 @@
 /* Demo: landing para un consultorio dental. Datos ficticios. */
 
+/* Fuente autoalojada: ningún pedido sale a terceros (antes venía de Google Fonts). */
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/fraunces-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("../fonts/fraunces-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 :root {
   --fondo: #f6fbfa;
   --fondo-2: #e6f3f0;
@@ -21,11 +39,14 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; -webkit-text-size-adjust: 100%; }
 body { margin: 0; font-family: var(--texto); font-size: 1.0625rem; line-height: 1.6; color: var(--tinta); background: var(--fondo); }
 img, svg { display: block; max-width: 100%; }
 a { color: inherit; text-underline-offset: .2em; }
 :focus-visible { outline: 3px solid var(--accion); outline-offset: 3px; border-radius: 4px; }
+.seccion--agenda :focus-visible { outline-color: var(--calido); }
+.cierre__caja :focus-visible { outline-color: #fff; }
+.oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 h1, h2, h3 { margin: 0; font-family: var(--titulos); font-weight: 600; line-height: 1.08; letter-spacing: -.01em; font-variation-settings: "SOFT" 60, "opsz" 72; }
 h1 { font-size: clamp(2.5rem, 1.6rem + 4.4vw, 4.5rem); }
 h2 { font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem); }
@@ -38,8 +59,11 @@ ul { list-style: none; }
 .saltar { position: absolute; left: 16px; top: -60px; background: var(--tinta); color: #fff; padding: 10px 14px; border-radius: 8px; z-index: 60; }
 .saltar:focus { top: 12px; }
 .muestra { background: var(--calido); color: var(--calido-tinta); font-size: .875rem; text-align: center; padding: 6px 16px; font-weight: 600; }
-.muestra a { color: inherit; }
-.nota { font-size: .9375rem; color: var(--tinta-3); margin-top: 18px; max-width: 48em; }
+.muestra a { color: inherit; display: inline-block; padding: 4px 0; }
+/* Notas para quien encarga la web: mismo trato punteado que los huecos de foto */
+.nota, .seccion__cab p.nota, .preguntas details p.nota { font-size: .9375rem; color: var(--tinta-3); margin-top: 18px; max-width: 48em; padding: 2px 0 2px 14px; border-left: 3px dashed var(--borde); }
+.preguntas details p.nota { margin: 0 0 18px; }
+.nota strong { color: var(--tinta); font-weight: 600; }
 
 .boton { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 24px; border-radius: 999px; background: var(--accion); color: #fff; font-weight: 600; text-decoration: none; border: 0; font: inherit; font-weight: 600; cursor: pointer; transition: background .2s var(--suave); }
 .boton:hover { background: var(--accion-oscuro); }
@@ -50,15 +74,20 @@ ul { list-style: none; }
 .icono { width: 20px; height: 20px; fill: currentColor; flex: none; }
 .enlace { font-weight: 600; text-decoration: underline; }
 
-.cabecera { position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--fondo) 90%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--borde); }
+.cabecera { position: sticky; top: 0; z-index: 20; background: rgba(246, 251, 250, .9); background: color-mix(in srgb, var(--fondo) 90%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--borde); }
 .cabecera__fila { display: flex; align-items: center; gap: 24px; min-height: 64px; }
-.marca { display: inline-flex; align-items: center; gap: 10px; font-family: var(--titulos); font-weight: 600; font-size: 1.25rem; text-decoration: none; font-variation-settings: "SOFT" 60; }
+.marca { display: inline-flex; align-items: center; gap: 10px; font-family: var(--titulos); font-weight: 600; font-size: 1.25rem; text-decoration: none; font-variation-settings: "SOFT" 60; white-space: nowrap; }
 .marca__icono { width: 28px; height: 28px; fill: var(--accion); }
 .nav { display: none; gap: 22px; margin-left: auto; }
 .nav a { text-decoration: none; color: var(--tinta-2); font-weight: 500; }
 .nav a:hover { color: var(--tinta); text-decoration: underline; }
 .cabecera .boton--chico { margin-left: auto; }
 @media (min-width: 860px) { .nav { display: flex; } .cabecera .boton--chico { margin-left: 0; } }
+/* Secciones en el celular: fila que se desplaza, debajo de la cabecera y sin fijarse */
+.nav-movil { display: flex; gap: 22px; overflow-x: auto; padding: 10px 16px; border-bottom: 1px solid var(--borde); font-size: .9375rem; scrollbar-width: none; }
+.nav-movil::-webkit-scrollbar { display: none; }
+.nav-movil a { white-space: nowrap; text-decoration: none; color: var(--tinta-2); font-weight: 500; padding: 4px 0; }
+@media (min-width: 860px) { .nav-movil { display: none; } }
 
 .hero { padding: clamp(36px, 6vw, 88px) 0 clamp(40px, 6vw, 80px); }
 .hero__rejilla { display: grid; grid-template-columns: minmax(0, 1fr); gap: 36px; align-items: center; }
@@ -146,7 +175,7 @@ ul { list-style: none; }
 .pie .contenedor { display: grid; gap: 10px; }
 @media (min-width: 720px) { .pie { padding-bottom: 36px; } }
 
-.barra-wa { position: fixed; left: 0; right: 0; bottom: 0; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: color-mix(in srgb, var(--fondo) 92%, transparent); backdrop-filter: blur(10px); border-top: 1px solid var(--borde); z-index: 30; }
+.barra-wa { position: fixed; left: 0; right: 0; bottom: 0; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: rgba(246, 251, 250, .92); background: color-mix(in srgb, var(--fondo) 92%, transparent); backdrop-filter: blur(10px); border-top: 1px solid var(--borde); z-index: 30; }
 .barra-wa .boton { width: 100%; }
 .barra-wa[hidden] { display: none; }
 @media (min-width: 720px) { .barra-wa { display: none; } }
