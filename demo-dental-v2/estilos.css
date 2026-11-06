@@ -1,0 +1,1267 @@
+/* Demo Dental.
+   Los nombres y los valores son los del Figma (ver DESIGN.md): cada variable del archivo es una propiedad aquí.
+   Se escribe primero el celular; después tablet (768 px) y computadora (1200 px). */
+
+/* ---------- Tipografía ---------- */
+@font-face {
+  font-family: "Familjen Grotesk";
+  src: url("fuentes/familjen-grotesk-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+/* Respaldo con las medidas de Familjen Grotesk, para que la página no salte cuando llega la fuente. */
+@font-face {
+  font-family: "Familjen Respaldo";
+  src: local("Arial");
+  size-adjust: 93%;
+  ascent-override: 110.2%;
+  descent-override: 24.2%;
+  line-gap-override: 0%;
+}
+
+/* ---------- Variables ---------- */
+:root {
+  --base-verde-900: #10261C;
+  --base-verde-800: #174C36;
+  --base-verde-700: #1E5E43;
+  --base-verde-500: #2E8B62;
+  --base-verde-200: #CFE0D6;
+  --base-verde-100: #E9F1EC;
+  --base-verde-50: #F4F8F5;
+  --base-esmalte: #F7F5EE;
+  --base-blanco: #FFFFFF;
+  --base-coral-400: #FF8A6B;
+  --base-coral-200: #FFD4C7;
+  --base-menta-300: #8BE3A8;
+  --base-gris-600: #4A5A51;
+
+  --superficie-campo: var(--base-verde-700);
+  --superficie-campo-fuerte: var(--base-verde-800);
+  --superficie-pie: var(--base-verde-900);
+  --superficie-clara: var(--base-blanco);
+  --superficie-suave: var(--base-verde-100);
+  --superficie-esmalte: var(--base-esmalte);
+  --texto-principal: var(--base-verde-900);
+  --texto-secundario: var(--base-gris-600);
+  --texto-marca: var(--base-verde-700);
+  --texto-sobre-campo: var(--base-esmalte);
+  --pieza-base: var(--base-esmalte);
+  --pieza-apagada: var(--base-verde-200);
+  --pieza-activa: var(--base-verde-700);
+  --pieza-dolor: var(--base-coral-400);
+  --acento-dolor-suave: var(--base-coral-200);
+  --borde-suave: var(--base-verde-200);
+  --borde-sobre-campo: var(--base-esmalte);
+  --estado-abierto: var(--base-menta-300);
+  --estado-abierto-claro: var(--base-verde-500);
+
+  --espacio-4: 4px;
+  --espacio-8: 8px;
+  --espacio-12: 12px;
+  --espacio-16: 16px;
+  --espacio-20: 20px;
+  --espacio-24: 24px;
+  --espacio-32: 32px;
+  --espacio-40: 40px;
+  --espacio-48: 48px;
+  --espacio-64: 64px;
+  --espacio-80: 80px;
+  --espacio-96: 96px;
+  --espacio-120: 120px;
+
+  --radio-8: 8px;
+  --radio-12: 12px;
+  --radio-20: 20px;
+  --radio-32: 32px;
+  --radio-999: 999px;
+
+  --fuente: "Familjen Grotesk", "Familjen Respaldo", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Estilos de texto: peso, tamaño / interlínea. El tracking va aparte porque `font` no lo lleva. */
+  --titular-1: 700 6.5rem/0.9615 var(--fuente);
+  --titular-2: 700 4.5rem/1 var(--fuente);
+  --titular-3: 700 3.5rem/1.0357 var(--fuente);
+  --titular-4: 700 2.75rem/1.0455 var(--fuente);
+  --titular-5: 700 2rem/1.125 var(--fuente);
+  --titular-6: 600 1.5rem/1.25 var(--fuente);
+  --titular-7: 600 1.1875rem/1.3158 var(--fuente);
+  --cuerpo-grande: 400 1.375rem/1.5 var(--fuente);
+  --cuerpo-base: 400 1.0625rem/1.5294 var(--fuente);
+  --cuerpo-chico: 400 0.875rem/1.5 var(--fuente);
+  --cuerpo-minimo: 500 0.75rem/1.4167 var(--fuente);
+  --interfaz-boton-grande: 700 1.1875rem/1.2632 var(--fuente);
+  --interfaz-boton: 700 1.0625rem/1.2941 var(--fuente);
+  --interfaz-opcion: 500 0.9375rem/1.3333 var(--fuente);
+  --interfaz-etiqueta: 500 0.75rem/1.3333 var(--fuente);
+  --interfaz-enlace: 500 1.0625rem/1.2941 var(--fuente);
+  --interfaz-enlace-chico: 500 0.75rem/1.4167 var(--fuente);
+  --interfaz-marca: 700 1.1875rem/1.2632 var(--fuente);
+  --tracking-1: -0.035em;
+  --tracking-2: -0.03em;
+  --tracking-3: -0.025em;
+  --tracking-4: -0.025em;
+  --tracking-5: -0.02em;
+  --tracking-6: -0.01em;
+  --tracking-7: -0.005em;
+
+  /* Rejilla: margen lateral, aire vertical de las secciones y separación entre bloques. */
+  --margen: 24px;
+  --aire: 48px;
+  --hueco: 24px;
+
+  /* Alto de la barra fija del celular: 12 + 54 + 12, más el área segura del teléfono. app.js lo reemplaza por
+     el alto medido, porque con el consultorio cerrado la barra lleva una nota. */
+  --barra: calc(78px + env(safe-area-inset-bottom, 0px));
+  /* Alto visible de la pantalla. El guion del encabezado lo reemplaza por el medido al cargar. */
+  --alto: 100vh;
+  --curva: cubic-bezier(0.2, 0.9, 0.1, 1);
+  --curva-suave: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --foco: var(--texto-principal); /* color del anillo de foco; las superficies verdes lo cambian a esmalte */
+}
+
+@supports (height: 100svh) {
+  :root { --alto: 100svh; }
+}
+@media (min-width: 768px) {
+  :root { --margen: 48px; --aire: 80px; --hueco: 32px; }
+}
+@media (min-width: 1200px) {
+  :root { --aire: 96px; --hueco: 48px; }
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent; /* el recuadro gris del toque: cada control ya responde a su manera */
+  /* Con el panel abierto la página no se desplaza y pierde su barra de desplazamiento. app.js pone aquí el ancho de
+     esa barra para que el contenido no se corra de lugar. */
+  padding-right: var(--hueco-barra, 0px);
+}
+
+body {
+  margin: 0;
+  font: var(--cuerpo-base);
+  color: var(--texto-principal);
+  background: var(--superficie-clara);
+  /* Una palabra que sola no entra en su línea se parte en vez de salirse. Con la letra normal no pasa nunca; con la
+     letra del navegador al doble, «Tratamientos» ya no entra en un celular. Se usa break-word y no anywhere: con
+     anywhere las filas encogían las palabras («Sábad/o») antes de bajar de línea. */
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, p, ul, dl, dd, figure, blockquote { margin: 0; }
+/* Ningún texto mide más que su caja: así una palabra demasiado larga se parte ahí mismo (ver overflow-wrap). */
+h1, h2, h3, p, li, dt, dd { max-width: 100%; }
+ul { padding: 0; list-style: none; }
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+[hidden] { display: none !important; }
+
+:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 3px;
+}
+
+.oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.lamina { position: absolute; }
+
+.saltar {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  z-index: 40;
+  padding: 12px 16px;
+  border-radius: var(--radio-999);
+  background: var(--superficie-esmalte);
+  color: var(--texto-marca);
+  font: var(--interfaz-opcion);
+  transform: translateY(-200%);
+  --foco: var(--texto-sobre-campo); /* aparece sobre la franja verde: el anillo oscuro no se vería */
+}
+.saltar:focus { transform: none; }
+
+.contenedor {
+  width: min(100% - 2 * var(--margen), 1200px);
+  margin-inline: auto;
+}
+
+/* Las superficies verdes llevan el texto y el anillo de foco en esmalte. */
+.aviso, .cabecera, .fija, .seccion--campo, .pie, .barra {
+  color: var(--texto-sobre-campo);
+  --foco: var(--texto-sobre-campo);
+}
+
+/* ---------- Piezas chicas ---------- */
+.enlace {
+  font: var(--interfaz-enlace);
+  color: var(--texto-marca);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.enlace--campo { color: var(--texto-sobre-campo); }
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border-radius: var(--radio-999);
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.14s var(--curva), box-shadow 0.18s var(--curva);
+}
+.boton:active { transform: scale(0.98); }
+
+/* En alto contraste de Windows el fondo desaparece: este contorno, invisible en lo demás, deja ver el botón. */
+.boton--primario:not(:focus-visible) { outline: 1px solid transparent; outline-offset: -1px; }
+.boton--primario {
+  min-height: 54px;
+  padding: 16px 24px;
+  background: var(--superficie-esmalte);
+  color: var(--texto-marca);
+  font: var(--interfaz-boton);
+}
+.boton--primario.boton--sobre-claro {
+  background: var(--superficie-campo);
+  color: var(--texto-sobre-campo);
+}
+.boton__icono {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+}
+.boton--contorno {
+  min-height: 46px;
+  padding: 12px 20px;
+  border: 1px solid var(--borde-sobre-campo);
+  color: var(--texto-sobre-campo);
+  font: var(--interfaz-opcion);
+}
+.boton--contorno.boton--claro {
+  border-color: var(--texto-marca);
+  color: var(--texto-marca);
+}
+.boton--lleno { width: 100%; }
+
+@media (min-width: 1200px) {
+  .boton--primario:not(.boton--base) {
+    min-height: 66px;
+    padding: 20px 32px;
+    font: var(--interfaz-boton-grande);
+  }
+  .boton--primario:not(.boton--base) .boton__icono { width: 26px; height: 26px; }
+}
+
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+  max-width: 100%;
+  padding: 4px 8px;
+  border: 1px solid transparent;
+  border-radius: var(--radio-8);
+  font: var(--interfaz-etiqueta);
+}
+.etiqueta--campo { border-color: var(--borde-sobre-campo); color: var(--texto-sobre-campo); }
+.etiqueta--claro { border-color: var(--borde-suave); color: var(--texto-secundario); }
+.etiqueta--foto {
+  border-color: var(--borde-suave);
+  border-radius: var(--radio-999);
+  background: var(--superficie-clara);
+  color: var(--texto-secundario);
+}
+.estado {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: var(--cuerpo-chico);
+}
+.estado__punto {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--estado-abierto);
+}
+.estado:not([data-abierto]) .estado__punto { display: none; } /* sin JavaScript no se sabe si está abierto */
+.estado[data-abierto="false"] .estado__punto {
+  background: none;
+  border: 1.5px solid var(--borde-sobre-campo);
+}
+.estado--claro { color: var(--texto-secundario); }
+.estado--claro .estado__punto { background: var(--estado-abierto-claro); }
+.estado--claro[data-abierto="false"] .estado__punto { background: none; border-color: var(--texto-secundario); }
+
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: inherit;
+  text-decoration: none;
+}
+.marca__iso { flex: none; fill: currentColor; }
+.marca__texto { display: flex; flex-direction: column; }
+.marca__nombre { font: var(--interfaz-marca); letter-spacing: var(--tracking-6); white-space: nowrap; }
+.marca__distrito { font: var(--cuerpo-minimo); }
+
+/* ---------- Aviso ---------- */
+.aviso {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0 8px;
+  padding: 8px 16px;
+  background: var(--superficie-campo-fuerte);
+}
+.aviso__texto { font: var(--cuerpo-minimo); }
+.aviso__enlace { font: var(--interfaz-enlace-chico); text-underline-offset: 2px; }
+.aviso__enlace::after { content: ""; position: absolute; inset: 0; } /* toda la franja es el enlace */
+
+/* ---------- Cabecera ---------- */
+.cabecera { background: var(--superficie-campo); }
+/* Las filas bajan de línea si no entran: pasa con la letra del navegador agrandada, y así nada se corta ni se sale. */
+.cabecera__fila, .fija__fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 16px;
+  padding-block: 12px;
+}
+.cabecera__derecha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px 32px;
+}
+.cabecera__estado {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.calificacion {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font: var(--cuerpo-minimo);
+  white-space: nowrap;
+}
+.calificacion svg { flex: none; fill: currentColor; }
+.navegacion, .cabecera__boton { display: none; }
+.navegacion a { font: var(--interfaz-opcion); text-decoration: none; }
+
+@media (min-width: 1200px) {
+  .cabecera__fila { padding-block: 20px; }
+  .navegacion { display: flex; gap: 32px; }
+  .cabecera__boton { display: inline-flex; }
+}
+
+/* Cabecera fija de tablet y computadora: entra cuando la portada sale de la pantalla. */
+.fija { display: none; }
+@media (min-width: 768px) {
+  html { scroll-padding-top: 79px; }
+  .fija {
+    display: block;
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 30;
+    padding-right: var(--hueco-barra, 0px); /* igual que la página: no se corre al abrir el panel */
+    background: var(--superficie-campo);
+    border-bottom: 1px solid var(--superficie-campo-fuerte);
+    transform: translateY(-100%);
+    visibility: hidden;
+    transition: transform 0.24s var(--curva), visibility 0s 0.24s;
+  }
+  .fija[data-visible="true"] {
+    transform: none;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+  .fija__fila { gap: 4px 24px; container: fija / inline-size; }
+}
+/* Con la letra agrandada, la marca, las secciones, el estado y el botón no entran en una fila y la cabecera fija se
+   iría a dos (159 px sobre la página). Se quitan las secciones, que siguen en la cabecera de arriba. La medida va en
+   em para que dependa del tamaño de letra: con la letra normal la fila mide 65 em o más y no cambia nada. */
+@container fija (max-width: 63em) {
+  .fija .navegacion { display: none; }
+}
+
+/* ---------- Portada ----------
+   Lo que resalta es la foto del consultorio, a color. En celular y tablet va arriba y se funde hacia abajo con el fondo
+   de la portada; en computadora y en un teléfono echado va a la derecha y el velo la funde hacia la izquierda, detrás del
+   texto. El texto nunca queda sobre la foto sin velo (probar-web.js lo mide). Hasta que llega la imagen, y si no llega, se
+   ve el esmalte liso. */
+.portada {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--superficie-esmalte);
+}
+.portada__foto {
+  position: relative;
+  flex: 1 1 200px;
+  min-height: 200px;
+  overflow: hidden;
+}
+.portada__foto picture { position: absolute; inset: 0; display: block; }
+.portada__imagen {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+}
+.portada__foto::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 72px;
+  background: linear-gradient(180deg, transparent, var(--superficie-esmalte));
+  pointer-events: none;
+}
+.portada__referencia { position: absolute; left: 12px; top: 12px; z-index: 1; }
+.portada__fila {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding-block: 8px 24px;
+}
+.portada__titulo { font: var(--titular-4); letter-spacing: var(--tracking-4); text-wrap: balance; }
+.portada__linea { display: block; overflow: hidden; padding-block: 0.08em 0.12em; margin-block: -0.08em -0.12em; }
+.portada__linea > span { display: block; }
+.portada__bajada { margin-top: -8px; font: var(--cuerpo-base); color: var(--texto-secundario); text-wrap: pretty; }
+.portada__accion { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 32px; align-self: stretch; }
+.portada__boton { flex: 1 1 100%; }
+.portada__ver { display: none; }
+.portada__datos { display: flex; flex-wrap: wrap; gap: 4px 24px; }
+.portada__direccion { font: var(--cuerpo-chico); color: var(--texto-secundario); }
+/* Pantalla baja: la foto cede su sitio y se quitan la bajada y la dirección, para que el botón se vea sin bajar. La clase la pone
+   el guion del encabezado, que mide una sola vez: una media query podría cambiar al esconderse las barras. */
+html.alto-corto .portada__foto { flex-basis: 120px; min-height: 120px; }
+html.alto-corto .portada__bajada, html.alto-corto .portada__direccion { display: none; }
+
+@media (max-width: 767px) {
+  /* Lo que el foco del teclado no debe dejar debajo de la barra fija. */
+  html { scroll-padding-bottom: calc(var(--barra) + 8px); }
+  /* Llena la primera pantalla: 98 px son el aviso y la cabecera. La foto toma lo que deja el texto. */
+  .portada { min-height: calc(var(--alto) - 98px); }
+}
+/* Por debajo de 360 px el nombre y la calificación no entran en una línea con el isotipo, y «en Chorrillos.» no entra
+   con el titular de celular. */
+@media (max-width: 359px) {
+  .cabecera .marca__iso { display: none; }
+  .cabecera__fila { gap: 4px 8px; }
+  .portada__titulo { font: var(--titular-5); letter-spacing: var(--tracking-5); }
+}
+
+@media (min-width: 768px) {
+  .portada { min-height: min(calc(var(--alto) - 98px), 780px); }
+  .portada__imagen { object-position: 50% 58%; }
+  .portada__foto::after { height: 96px; }
+  .portada__fila { gap: 24px; padding-block: 8px 40px; }
+  .portada__titulo { font: var(--titular-3); letter-spacing: var(--tracking-3); }
+  .portada__bajada { margin-top: -12px; max-width: 560px; font: var(--cuerpo-grande); }
+  .portada__boton { flex: none; }
+  .portada__ver { display: inline; }
+}
+/* Computadora y teléfono echado: dos columnas. La foto va a la derecha y el velo la funde con el esmalte, detrás del texto. El
+   corte va en em para que dependa de la letra: con la letra agrandada el texto ya no entra al lado y la portada sigue en una
+   columna, en vez de montarse sobre la foto. */
+@media (min-width: 64em), (min-width: 568px) and (max-height: 500px) {
+  .portada { flex-direction: row; align-items: center; min-height: clamp(480px, calc(var(--alto) - 98px), 780px); }
+  .portada__foto {
+    position: absolute;
+    inset: 0 0 0 36%;
+    flex: none;
+    min-height: 0;
+  }
+  html.alto-corto .portada__foto { min-height: 0; }
+  .portada__imagen { object-position: 50% 62%; }
+  .portada__foto::after {
+    inset: 0;
+    height: auto;
+    background: linear-gradient(90deg, var(--superficie-esmalte) 20%, transparent 38%);
+  }
+  .portada__referencia { left: auto; top: auto; right: max(var(--margen), calc((100vw - 1200px) / 2)); bottom: 24px; }
+  .portada__fila { padding-block: 48px; }
+  .portada__titulo { font: var(--titular-3); letter-spacing: var(--tracking-3); }
+  .portada__bajada { max-width: 400px; }
+  .portada__boton { flex: none; }
+}
+@media (min-width: 75em) {
+  .portada { min-height: clamp(560px, calc(var(--alto) - 119px), 860px); }
+  .portada__foto { inset: 0 0 0 30%; }
+  .portada__fila { gap: 32px; padding-block: 64px; }
+  .portada__titulo { font: var(--titular-2); letter-spacing: var(--tracking-2); }
+  .portada__bajada { margin-top: -12px; max-width: 480px; }
+}
+/* Teléfono echado (844 × 390): menos alto, menos letra. */
+@media (min-width: 568px) and (max-width: 1023px) and (max-height: 500px) {
+  .portada { min-height: 0; }
+  .portada__foto { inset: 0 0 0 42%; }
+  .portada__fila { gap: 12px; padding-block: 16px; }
+  .portada__titulo { font: var(--titular-5); letter-spacing: var(--tracking-5); }
+  .portada__ver { display: none; } /* no hay sitio: quedaría sobre la foto */
+  .portada__datos { max-width: 300px; }
+}
+
+/* ---------- Secciones ---------- */
+.seccion { padding-block: var(--aire); }
+.seccion--suave { background: var(--superficie-suave); }
+.seccion--campo { background: var(--superficie-campo); }
+.seccion__pila {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hueco);
+}
+.seccion__titulo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.seccion__titulo h2 {
+  max-width: min(760px, 100%);
+  font: var(--titular-5);
+  letter-spacing: var(--tracking-5);
+  text-wrap: balance;
+}
+.seccion__bajada {
+  max-width: min(640px, 100%);
+  font: var(--cuerpo-base);
+  color: var(--texto-secundario);
+  text-wrap: pretty;
+}
+.seccion--campo .seccion__bajada { color: inherit; }
+
+@media (min-width: 768px) {
+  .seccion__titulo { gap: 16px; }
+  .seccion__titulo h2 { font: var(--titular-4); letter-spacing: var(--tracking-4); }
+  .seccion__bajada { font: var(--cuerpo-grande); }
+}
+@media (min-width: 1200px) {
+  .seccion__titulo h2 { font: var(--titular-3); letter-spacing: var(--tracking-3); }
+}
+
+/* ---------- Tratamientos ---------- */
+.tratamientos { display: flex; flex-direction: column; }
+.tratamiento {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-block: 20px;
+  border-bottom: 1px solid var(--borde-suave);
+}
+.icono {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  fill: none;
+  stroke: var(--pieza-activa);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.icono__relleno { fill: var(--pieza-activa); stroke: none; }
+.icono__rayo { stroke: var(--pieza-dolor); stroke-width: 2.6; }
+.tratamiento__texto {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+}
+.tratamiento__nombre { font: var(--titular-6); letter-spacing: var(--tracking-6); }
+.tratamiento__detalle { font: var(--cuerpo-base); color: var(--texto-secundario); text-wrap: pretty; }
+.tratamiento__enlace { margin-top: 8px; }
+.tratamiento__enlace::after { content: ""; position: absolute; inset: 0; } /* responde la pieza entera */
+
+@media (min-width: 768px) {
+  .tratamientos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 48px;
+  }
+  .tratamiento {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-block: 32px;
+    border-top: 1px solid var(--borde-suave);
+    border-bottom: 0;
+  }
+  .tratamiento__texto { flex: none; gap: 8px; }
+}
+@media (min-width: 1200px) {
+  .tratamientos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ---------- Fotos ----------
+   Cada foto llena un marco con medidas propias: nada salta cuando llega la imagen, y si no llega, el marco se queda. */
+.foto, .banda-foto {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radio-20);
+}
+.foto__imagen {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+}
+.foto .etiqueta, .banda-foto .etiqueta { position: absolute; left: 12px; top: 12px; }
+
+/* ---------- Cómo atendemos ---------- */
+.banda-foto {
+  aspect-ratio: 342 / 200;
+  margin-bottom: 24px;
+  background: var(--superficie-suave);
+}
+@media (min-width: 768px) {
+  .banda-foto { aspect-ratio: 672 / 300; margin-bottom: 32px; }
+}
+@media (min-width: 1200px) {
+  .banda-foto { aspect-ratio: 1200 / 352; margin-bottom: 40px; }
+}
+.atendemos { padding-top: 0; padding-bottom: calc(var(--aire) - 24px); }
+.atendemos__cabeza { margin-bottom: var(--hueco); }
+.promesa {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-block: 24px;
+  border-top: 1px solid var(--borde-suave);
+}
+.promesa__frase { font: var(--titular-5); letter-spacing: var(--tracking-5); }
+.promesa__detalle { font: var(--cuerpo-base); color: var(--texto-secundario); text-wrap: pretty; }
+
+@media (min-width: 1200px) {
+  .atendemos { padding-bottom: calc(var(--aire) - 40px); }
+  .promesa { flex-direction: row; gap: 64px; padding-block: 40px; }
+  .promesa__frase { flex: 660 1 0; font: var(--titular-3); letter-spacing: var(--tracking-3); }
+  .promesa__detalle { flex: 476 1 0; font: var(--cuerpo-grande); }
+}
+
+/* ---------- Videos ----------
+   La imagen es un cuadro del propio clip y carga tarde, como las otras fotos. El clip no baja hasta que se toca el botón. */
+.videos__lista { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
+.video { display: flex; flex-direction: column; gap: 12px; }
+.video > .video__marco { order: -1; } /* el título va antes en el documento, para el lector de pantalla, y debajo a la vista */
+.video__marco {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radio-20);
+  background: var(--superficie-campo-fuerte);
+}
+.video__marco .etiqueta { position: absolute; left: 12px; top: 12px; }
+.video__reproducir {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: inherit;
+  --foco: var(--texto-sobre-campo);
+}
+.video__reproducir:focus-visible { outline-offset: -5px; }
+.video__reproducir[hidden] { display: none; }
+.video__icono {
+  width: 64px;
+  height: 64px;
+  transition: transform 0.2s var(--curva);
+}
+.video__icono circle { fill: var(--superficie-esmalte); }
+.video__icono path { fill: var(--texto-marca); }
+.video__reproducir:active .video__icono { transform: scale(0.96); }
+.video__clip {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--superficie-pie);
+  opacity: 0;
+  transition: opacity 0.12s ease-out;
+}
+.video__marco[data-reproduciendo] .video__clip { opacity: 1; }
+.video__titulo { font: var(--titular-7); letter-spacing: var(--tracking-7); text-wrap: balance; }
+.videos__nota { max-width: min(620px, 100%); font: var(--cuerpo-chico); }
+
+@media (min-width: 768px) {
+  .videos__lista { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .video--grande { grid-column: 1 / -1; }
+}
+@media (min-width: 1200px) {
+  .videos__lista { grid-template-columns: minmax(0, 820fr) minmax(0, 356fr); }
+  .video--grande { grid-column: 1; grid-row: 1 / span 2; }
+}
+
+/* ---------- Quién te atiende ---------- */
+.equipo {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.personas {
+  order: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.persona {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.persona__inicial {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 24px;
+  background: var(--superficie-clara);
+  color: var(--texto-marca);
+  font: var(--titular-5);
+  font-size: min(2rem, 44px); /* el cuadro mide 64 px fijos: con la letra agrandada la inicial no se sale */
+  letter-spacing: var(--tracking-5);
+}
+.persona__datos { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.persona__nombre { font: var(--titular-7); letter-spacing: var(--tracking-7); }
+.persona__especialidad { font: var(--cuerpo-chico); color: var(--texto-secundario); }
+/* Crece con la pantalla, sin perder la proporción, hasta el ancho con que se dibujó en tablet. */
+.foto {
+  order: 1;
+  width: 100%;
+  max-width: 672px;
+  aspect-ratio: 342 / 200;
+  background: var(--superficie-clara);
+}
+
+@media (min-width: 768px) {
+  .personas { order: 1; flex-direction: row; flex-wrap: wrap; gap: 24px 32px; }
+  .foto { order: 2; aspect-ratio: 672 / 378; }
+}
+@media (min-width: 1024px) {
+  .equipo {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 64px;
+  }
+  .personas { flex-direction: column; flex-wrap: nowrap; gap: 28px; }
+  .foto { flex: none; width: 560px; aspect-ratio: 560 / 320; }
+}
+
+/* ---------- Antes y después ----------
+   Celular y computadora: «Antes» sobre «Después». Tablet: uno al lado del otro, porque el caso ocupa todo el ancho. */
+.casos { display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; }
+.caso { display: flex; flex-direction: column; gap: 12px; }
+.caso__fotos {
+  display: grid;
+  gap: 2px;
+  overflow: hidden;
+  border-radius: var(--radio-20);
+}
+.caso__panel {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 2.25;
+  background: var(--superficie-suave);
+}
+.caso__panel .etiqueta { position: absolute; left: 12px; top: 12px; }
+.caso__pie { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.caso__texto { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.caso__nombre { font: var(--titular-7); letter-spacing: var(--tracking-7); }
+.caso__detalle { font: var(--cuerpo-chico); color: var(--texto-secundario); text-wrap: pretty; }
+.casos__nota { max-width: min(640px, 100%); font: var(--cuerpo-chico); color: var(--texto-secundario); }
+
+@media (min-width: 768px) {
+  .caso__fotos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 1200px) {
+  .casos { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .caso__fotos { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- Reseñas ---------- */
+.nota-google {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+}
+.nota-google__cifra { font: var(--titular-2); letter-spacing: var(--tracking-2); }
+.nota-google__detalle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.nota-google__texto { font: var(--cuerpo-base); }
+.resenas {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.resena {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px;
+  border: 1px solid var(--borde-sobre-campo);
+  border-radius: var(--radio-20);
+}
+.resena__texto { font: var(--cuerpo-base); text-wrap: pretty; }
+.resena__autor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 16px;
+  font: var(--cuerpo-chico);
+}
+
+@media (min-width: 768px) {
+  .nota-google__texto { font: var(--cuerpo-grande); }
+}
+@media (min-width: 1200px) {
+  .resenas { flex-direction: row; gap: 48px; }
+  .resena { flex: 1; }
+}
+
+/* ---------- Dónde estamos ---------- */
+.ubicacion {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.ubicacion__datos {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+.direccion { display: flex; flex-direction: column; gap: 4px; }
+.direccion__calle { font: var(--titular-6); letter-spacing: var(--tracking-6); }
+.direccion__referencia { font: var(--cuerpo-base); color: var(--texto-secundario); }
+.horario { align-self: stretch; margin: 0; }
+.horario__fila {
+  display: flex;
+  flex-wrap: wrap; /* con la letra agrandada, la hora baja debajo del día en vez de apretarlo */
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 16px;
+  padding-block: 12px;
+  border-bottom: 1px solid var(--borde-suave);
+}
+.horario dd { color: var(--texto-secundario); text-align: right; }
+.mapa {
+  position: relative;
+  overflow: hidden;
+  height: 220px;
+  border-radius: var(--radio-20);
+  background: var(--superficie-suave);
+}
+.mapa__calles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.mapa__calles line { stroke: var(--superficie-clara); stroke-linecap: round; }
+/* El punto es coral con borde oscuro: el coral solo no contrasta con las calles blancas. */
+.mapa__punto {
+  position: absolute;
+  left: 41.5%;
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  margin: -11px 0 0 -11px;
+  border: 3px solid var(--texto-principal);
+  border-radius: 50%;
+  background: var(--pieza-dolor);
+}
+.mapa__rotulo { position: absolute; font: var(--cuerpo-minimo); color: var(--texto-secundario); }
+.mapa__rotulo--avenida { left: 60%; top: calc(50% - 30px); }
+.mapa__rotulo--muni { left: 11%; top: 30%; }
+.mapa__etiqueta { position: absolute; left: 12px; top: 12px; }
+
+@media (min-width: 768px) {
+  .mapa { height: 320px; }
+}
+@media (min-width: 1200px) {
+  .ubicacion { flex-direction: row; gap: 64px; }
+  .ubicacion__datos { flex: none; width: 520px; }
+  .mapa { flex: 1; height: 420px; }
+}
+
+/* ---------- Preguntas frecuentes ---------- */
+.preguntas__fila {
+  display: flex;
+  flex-direction: column;
+  gap: var(--hueco);
+}
+.pregunta { border-bottom: 1px solid var(--borde-suave); }
+/* La pregunta sobresale 8 px a cada lado sin moverse de su sitio: es el aire que necesita el anillo de foco, que va
+   por dentro para no cruzar la respuesta ni pisar el texto. */
+.pregunta summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-inline: -8px;
+  padding: 20px 8px;
+  font: var(--titular-7);
+  letter-spacing: var(--tracking-7);
+  list-style: none;
+  cursor: pointer;
+}
+.pregunta[open] summary { padding-bottom: 12px; } /* la respuesta queda a 12 px, sin montarse sobre la pregunta */
+.pregunta summary::-webkit-details-marker { display: none; }
+.pregunta summary:focus-visible { outline-offset: -3px; }
+.pregunta__signo {
+  flex: none;
+  fill: none;
+  stroke: var(--texto-marca);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+}
+.pregunta__palo { transition: opacity 0.18s var(--curva); }
+.pregunta[open] .pregunta__palo { opacity: 0; } /* de más a menos */
+.pregunta__respuesta {
+  padding-bottom: 20px;
+  font: var(--cuerpo-base);
+  color: var(--texto-secundario);
+  text-wrap: pretty;
+}
+
+@media (min-width: 1200px) {
+  .preguntas__fila { flex-direction: row; justify-content: space-between; gap: 64px; }
+  .preguntas .seccion__titulo { flex: 0 1 380px; }
+  .preguntas__lista { flex: 0 1 720px; }
+}
+
+/* ---------- Cierre ---------- */
+.cierre__fila {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+.cierre__titulo { font: var(--titular-4); letter-spacing: var(--tracking-4); text-wrap: balance; }
+.cierre__titulo br { display: none; } /* en celular el corte fijo dejaba «control?» solo en una tercera línea */
+.cierre__boton { width: 100%; }
+.cierre__nota { max-width: 520px; font: var(--cuerpo-chico); }
+
+@media (min-width: 768px) {
+  .cierre__fila { align-items: center; text-align: center; }
+  .cierre__titulo br { display: inline; }
+  .cierre__boton { width: auto; }
+  .cierre .estado { justify-content: center; }
+  .cierre .seccion__bajada { max-width: none; }
+}
+@media (min-width: 1200px) {
+  .cierre__titulo { font: var(--titular-2); letter-spacing: var(--tracking-2); }
+}
+
+/* ---------- Para quien tiene un consultorio ---------- */
+.consultorio { padding-block: 40px; background: var(--superficie-esmalte); }
+.consultorio__pila {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+.consultorio__titulo { font: var(--titular-6); letter-spacing: var(--tracking-6); }
+.consultorio__texto { max-width: 620px; font: var(--cuerpo-base); color: var(--texto-secundario); text-wrap: pretty; }
+
+@media (min-width: 768px) {
+  .consultorio { padding-block: 56px; }
+  .consultorio__titulo { font: var(--titular-5); letter-spacing: var(--tracking-5); }
+}
+
+/* ---------- Pie ---------- */
+.pie {
+  /* En celular deja libre el alto de la barra fija, más el área segura del teléfono. */
+  padding-block: 48px calc(48px + var(--barra));
+  background: var(--superficie-pie);
+}
+.pie__pila {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+.pie__datos {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 620px;
+  font: var(--cuerpo-chico);
+}
+.pie__enlaces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px 24px; /* 22 de texto y 22 de aire: 44 px por enlace */
+}
+.libro { min-width: 0; }
+.libro summary { display: block; width: fit-content; list-style: none; cursor: pointer; }
+.libro summary::-webkit-details-marker { display: none; }
+.libro[open] { flex-basis: 100%; }
+.libro__nota { max-width: 620px; margin-top: 8px; font: var(--cuerpo-chico); }
+.pie__muestra { max-width: 620px; font: var(--cuerpo-chico); }
+.creditos__cuerpo { display: flex; flex-direction: column; gap: 8px; max-width: 620px; margin-top: 8px; font: var(--cuerpo-chico); }
+.creditos__lista { display: flex; flex-direction: column; gap: 4px; }
+.creditos__cuerpo a { text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.pie__licencia { white-space: nowrap; } /* el navegador podría partirla en el guion: «BY-/SA» */
+
+@media (min-width: 768px) {
+  .pie { padding-block: 48px; }
+  .pie__enlaces { gap: 12px 24px; }
+}
+
+/* ---------- Barra fija del celular ---------- */
+.barra {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+  background: var(--superficie-campo-fuerte);
+  transition: transform 0.24s var(--curva), visibility 0s;
+}
+.barra[data-oculta="true"], html.js .barra:not([data-oculta]) {
+  transform: translateY(100%);
+  visibility: hidden;
+  transition: transform 0.24s var(--curva), visibility 0s 0.24s;
+}
+.barra__nota { font: var(--cuerpo-minimo); font-size: min(0.75rem, 14px); text-align: center; text-wrap: balance; }
+/* La barra va siempre encima de la página: su letra crece poco con la del navegador para que no se coma la pantalla
+   (al doble llegaba a ocupar el 45 %). El mismo botón está en la página, a tamaño completo. */
+.barra .boton { font-size: min(1.0625rem, 19px); }
+@media (min-width: 768px) {
+  .barra { display: none; }
+}
+/* Teléfono echado (844 × 390): vuelve la barra de abajo y se va la cabecera fija, que le quitaría más alto a una pantalla
+   que ya tiene poco. */
+@media (min-width: 768px) and (max-width: 1199px) and (max-height: 500px) {
+  html { scroll-padding-top: 0; scroll-padding-bottom: calc(var(--barra) + 8px); }
+  .fija { display: none; }
+  .barra { display: flex; }
+  .barra .boton { max-width: 420px; }
+  .pie { padding-block: 48px calc(48px + var(--barra)); }
+}
+
+/* ---------- Capa del dueño ---------- */
+.incluye {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0 0 0 auto;
+  padding: 0;
+  border: 0;
+  background: var(--superficie-esmalte);
+  color: var(--texto-principal);
+  overscroll-behavior: contain;
+}
+.incluye::backdrop { background: color-mix(in srgb, var(--base-verde-900) 55%, transparent); }
+.incluye__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 100%;
+  padding: 24px 24px 0;
+}
+.incluye__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.incluye__titulo { font: var(--titular-5); letter-spacing: var(--tracking-5); }
+.incluye__cerrar-forma { margin: 0; }
+.incluye__cerrar {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--borde-suave);
+  border-radius: 50%;
+}
+.incluye__cerrar svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+.incluye__precio { display: flex; flex-direction: column; gap: 8px; }
+.incluye__monto { font: var(--titular-2); letter-spacing: var(--tracking-2); }
+.incluye__plazo { font: var(--cuerpo-base); }
+.incluye__lista { border-top: 1px solid var(--borde-suave); }
+.incluye__lista li {
+  padding-block: 12px;
+  border-bottom: 1px solid var(--borde-suave);
+  font: var(--cuerpo-base);
+}
+/* Las condiciones van una por línea, cada una con su nombre: se leen como condiciones claras, no como letra chica. */
+.incluye__condiciones {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font: var(--cuerpo-chico);
+  color: var(--texto-secundario);
+}
+.incluye__condiciones strong { font-weight: 600; color: var(--texto-principal); }
+/* El botón queda a la vista al pie del panel mientras se lee la lista. */
+.incluye__accion {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+  padding-block: 16px calc(24px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--borde-suave);
+  background: var(--superficie-esmalte);
+}
+@media (min-width: 768px) {
+  .incluye { width: 390px; }
+}
+/* Sin JavaScript (o en un navegador sin <dialog>) no hay panel: lo que incluye la web se lee como una sección
+   más, antes del pie. */
+html:not(.js) .incluye, html.sin-panel .incluye {
+  position: static;
+  display: block;
+  width: auto;
+  height: auto;
+}
+html:not(.js) .incluye__panel, html.sin-panel .incluye__panel { width: min(100% - 2 * var(--margen), 620px); margin-inline: auto; padding-inline: 0; }
+html:not(.js) .incluye__cerrar-forma, html.sin-panel .incluye__cerrar-forma { display: none; }
+html:not(.js) .incluye__accion, html.sin-panel .incluye__accion { position: static; }
+
+/* ---------- Al pasar el mouse ----------
+   Solo donde hay mouse: en un teléfono el último botón tocado se quedaría «prendido». */
+@media (hover: hover) {
+  .enlace:hover, .creditos__cuerpo a:hover { text-decoration-thickness: 2px; }
+  .boton:hover { box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 16%, transparent); }
+  .navegacion a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .video__reproducir:hover .video__icono { transform: scale(1.08); }
+  .tratamiento:hover .tratamiento__enlace { text-decoration-thickness: 2px; }
+}
+
+/* ---------- Movimiento ----------
+   Qué se mueve, cuánto dura y por qué: página 08 del Figma. Solo transformación, opacidad y recorte, una sola vez, y nada
+   retiene al botón: se puede tocar desde el primer momento. La portada es solo CSS, así que no depende de JavaScript.
+   Lo que entra al llegar a la pantalla va bajo .animar, la clase que pone app.js: sin ella todo se ve desde el principio.
+   Solo en pantalla: al imprimir no debe quedar nada sin descubrir. */
+@media screen and (prefers-reduced-motion: no-preference) {
+  /* Portada: la foto se asienta y el texto entra de arriba hacia el botón. */
+  .portada__imagen { animation: foto-asienta 1.6s var(--curva-suave) both; }
+  .portada__linea > span { animation: linea-sube 0.7s var(--curva) both; }
+  .portada__linea:nth-child(2) > span { animation-delay: 0.09s; }
+  .portada__bajada { animation: entra-suave 0.5s var(--curva-suave) 0.22s both; }
+  .portada__accion { animation: entra-suave 0.5s var(--curva-suave) 0.3s both; }
+  .portada__estado { animation: entra-suave 0.5s var(--curva-suave) 0.38s both; }
+  /* Un anillo se abre una sola vez alrededor del botón, cuando terminó la entrada. */
+  .portada__boton { animation: boton-anillo 0.9s ease-out 0.9s 1; }
+
+  /* Tratamientos: se dibuja el contorno y aparece lo que distingue a cada uno. */
+  .animar .icono__trazo { stroke-dasharray: 1; transition: stroke-dashoffset 0.7s var(--curva-suave); }
+  .animar .icono:not(.a-la-vista) .icono__trazo { stroke-dashoffset: 1; }
+  .icono__detalle { transform-box: fill-box; transform-origin: center; }
+  .animar .icono__detalle { transition: opacity 0.3s ease-out 0.45s, transform 0.5s var(--curva) 0.45s; }
+  .animar .icono:not(.a-la-vista) .icono__detalle { opacity: 0; transform: scale(0.6); }
+
+  /* Cómo atendemos: se leen en orden. */
+  .animar .promesa { transition: opacity 0.5s var(--curva-suave), transform 0.5s var(--curva-suave); }
+  .animar .promesa:nth-child(2) { transition-delay: 0.08s; }
+  .animar .promesa:nth-child(3) { transition-delay: 0.16s; }
+  .animar .promesas:not(.a-la-vista) .promesa { opacity: 0; transform: translateY(12px); }
+
+  /* Fotos de sección y videos: la imagen se asienta dentro de su marco, que está desde el principio. */
+  .animar .banda-foto .foto__imagen, .animar .foto .foto__imagen, .animar .video__marco .foto__imagen { transition: transform 0.9s var(--curva-suave); }
+  .animar .banda-foto:not(.a-la-vista) .foto__imagen, .animar .foto:not(.a-la-vista) .foto__imagen, .animar .video__marco:not(.a-la-vista) .foto__imagen { transform: scale(1.06); }
+
+  /* Antes y después: el «Después» se descubre. */
+  .animar .caso__panel:nth-child(2) { clip-path: inset(0); transition: clip-path 0.8s var(--curva-suave) 0.1s; } /* entre «none» y un recorte no hay transición */
+  .animar .caso__panel:nth-child(2):not(.a-la-vista) { clip-path: inset(0 100% 0 0); }
+
+  /* Paneles y preguntas: responden a un toque. */
+  .incluye[open] { animation: panel-entra 0.24s var(--curva); }
+  .pregunta__palo { transform-origin: center; transition: opacity 0.18s var(--curva), transform 0.24s var(--curva); }
+  .pregunta summary { transition: padding-bottom 0.24s var(--curva-suave); } /* sin esto, la pregunta que se cierra da un rebote de 8 px */
+  .video__marco[data-cargando] .video__icono { animation: boton-late 1s ease-in-out infinite; }
+  .pregunta[open] .pregunta__palo { transform: rotate(90deg); }
+  @supports selector(::details-content) {
+    html { interpolate-size: allow-keywords; }
+    .pregunta::details-content { height: 0; overflow: clip; transition: height 0.24s var(--curva-suave), content-visibility 0.24s allow-discrete; }
+    .pregunta[open]::details-content { height: auto; }
+  }
+}
+/* Portada, al bajar: la foto va más lento que la página. Solo donde el navegador lo resuelve sin JavaScript. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .portada__foto picture {
+      inset: -6% 0;
+      animation: foto-paralaje linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+  }
+}
+@keyframes foto-asienta { from { transform: scale(1.06); } }
+@keyframes linea-sube { from { transform: translateY(105%); } }
+@keyframes entra-suave { from { opacity: 0; transform: translateY(10px); } }
+@keyframes boton-anillo {
+  from { box-shadow: 0 0 0 0 color-mix(in srgb, var(--superficie-campo) 45%, transparent); }
+  to { box-shadow: 0 0 0 18px color-mix(in srgb, var(--superficie-campo) 0%, transparent); }
+}
+@keyframes foto-paralaje { to { transform: translateY(5%); } }
+@keyframes boton-late { 50% { transform: scale(0.9); opacity: 0.7; } }
+@keyframes panel-entra { from { transform: translateX(24px); opacity: 0; } }
+
+/* ---------- Movimiento reducido ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}

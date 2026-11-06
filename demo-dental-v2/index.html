@@ -1,0 +1,998 @@
+<!doctype html>
+<html lang="es-PE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dental Morro, web de muestra para consultorios dentales</title>
+<meta name="description" content="Así puede verse y funcionar la web de tu consultorio. La clínica es ficticia. Hecha por Angel Cancho.">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#174C36">
+<link rel="canonical" href="https://angerlessdev.github.io/demo-dental-v2/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_PE">
+<meta property="og:title" content="Dental Morro, web de muestra para consultorios dentales">
+<meta property="og:description" content="Así puede verse y funcionar la web de tu consultorio. La clínica es ficticia. Hecha por Angel Cancho.">
+<meta property="og:url" content="https://angerlessdev.github.io/demo-dental-v2/">
+<meta property="og:image" content="https://angerlessdev.github.io/demo-dental-v2/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tu dentista en Chorrillos. Web de muestra para consultorios dentales.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fuentes/familjen-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="estilos.css">
+<script>
+/* Antes de pintar: marca que hay JavaScript y mide el alto visible. Se mide al cargar y al rotar el teléfono, no al
+   bajar: las barras del navegador se esconden al desplazarse y la portada no debe saltar. En una pantalla muy baja
+   (alto-corto) la foto cede su sitio para que el botón se vea sin bajar. */
+(function (r) {
+  r.className = 'js';
+  function medir() {
+    var alto = window.innerHeight;
+    if (alto < 300) return; /* sin una medida confiable se queda con 100svh, de la hoja de estilos */
+    r.style.setProperty('--alto', alto + 'px');
+    r.classList.toggle('alto-corto', window.innerWidth < 1024 && alto < 620);
+  }
+  medir();
+  var ancho = window.innerWidth;
+  window.addEventListener('resize', function () {
+    if (window.innerWidth !== ancho) { ancho = window.innerWidth; medir(); }
+  });
+})(document.documentElement);
+</script>
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<svg class="lamina" width="0" height="0" aria-hidden="true" focusable="false">
+  <symbol id="ico-wa" viewBox="0 0 26 26"><path d="M13 3.25C11.2811 3.2568 9.59464 3.71787 8.1114 4.5865C6.62817 5.45513 5.40092 6.70043 4.55406 8.1962C3.70719 9.69197 3.2708 11.385 3.28911 13.1038C3.30742 14.8226 3.77979 16.506 4.65833 17.9833L3.25 22.75L8.125 21.45C9.42027 22.1956 10.8696 22.6335 12.3611 22.7297C13.8525 22.826 15.3461 22.5781 16.7265 22.0053C18.1069 21.4324 19.3371 20.5498 20.3221 19.4258C21.307 18.3018 22.0204 16.9663 22.4071 15.5227C22.7938 14.079 22.8435 12.5658 22.5522 11.0999C22.2609 9.63402 21.6366 8.25471 20.7274 7.06855C19.8182 5.88238 18.6484 4.92111 17.3086 4.259C15.9687 3.59689 14.4945 3.25166 13 3.25Z" stroke-width="1.8" stroke-linejoin="round"/><path d="M9.75 9.20834C9.87637 11.0342 10.6588 12.7528 11.953 14.047C13.2472 15.3412 14.9658 16.1236 16.7917 16.25" stroke-width="2.6" stroke-linecap="round"/></symbol>
+  <symbol id="ico-iso" viewBox="0 0 28 20"><circle cx="4" cy="16" r="3"/><circle cx="6.9" cy="8.9" r="3"/><circle cx="14" cy="6" r="3"/><circle cx="21.1" cy="8.9" r="3"/><circle cx="24" cy="16" r="3"/></symbol>
+</svg>
+
+<header>
+<div class="aviso">
+  <p class="aviso__texto">Web de muestra: la clínica es ficticia.</p>
+  <a class="aviso__enlace" href="#incluye" data-abre-incluye>Ver qué incluye<span class="oculto"> tu web</span></a>
+</div>
+
+<div class="cabecera">
+  <div class="contenedor cabecera__fila">
+    <a class="marca" href="#contenido">
+      <svg class="marca__iso" width="28" height="20" aria-hidden="true" focusable="false"><use href="#ico-iso"/></svg>
+      <span class="marca__texto"><span class="marca__nombre">Dental Morro</span><span class="marca__distrito">Chorrillos</span></span>
+    </a>
+    <div class="cabecera__derecha">
+      <nav class="navegacion" aria-label="Secciones">
+        <a href="#tratamientos">Tratamientos</a>
+        <a href="#como-atendemos">Cómo atendemos</a>
+        <a href="#donde-estamos">Dónde estamos</a>
+        <a href="#preguntas">Preguntas</a>
+      </nav>
+      <div class="cabecera__estado">
+        <p class="calificacion"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false"><path d="M8 1.5l1.9 4.2 4.6.5-3.4 3.1.9 4.5L8 11.5l-4 2.3.9-4.5-3.4-3.1 4.6-.5z"/></svg>4,9 en Google (ejemplo)</p>
+      </div>
+      <a class="boton boton--contorno cabecera__boton" href="https://wa.me/51993339301?text=Prueba%20desde%20la%20muestra%20de%20Dental%20Morro.%0AHola%2C%20quiero%20una%20cita%20en%20Dental%20Morro.%0A%C2%BFMe%20pueden%20atender%3F" target="_blank" rel="noopener">Pedir cita<span class="oculto"> por WhatsApp (se abre en otra pestaña)</span></a>
+    </div>
+  </div>
+</div>
+
+<div class="fija" data-fija inert>
+  <div class="contenedor fija__fila">
+    <a class="marca" href="#contenido">
+      <svg class="marca__iso" width="28" height="20" aria-hidden="true" focusable="false"><use href="#ico-iso"/></svg>
+      <span class="marca__texto"><span class="marca__nombre">Dental Morro</span><span class="marca__distrito">Chorrillos</span></span>
+    </a>
+    <div class="cabecera__derecha">
+      <nav class="navegacion" aria-label="Secciones, en la barra fija">
+        <a href="#tratamientos">Tratamientos</a>
+        <a href="#como-atendemos">Cómo atendemos</a>
+        <a href="#donde-estamos">Dónde estamos</a>
+        <a href="#preguntas">Preguntas</a>
+      </nav>
+      <p class="estado estado--campo" data-estado="corto"><span class="estado__punto" aria-hidden="true"></span><span data-estado-texto>Lunes a sábado</span></p>
+      <a class="boton boton--primario boton--base" href="https://wa.me/51993339301?text=Prueba%20desde%20la%20muestra%20de%20Dental%20Morro.%0AHola%2C%20quiero%20una%20cita%20en%20Dental%20Morro.%0A%C2%BFMe%20pueden%20atender%3F" target="_blank" rel="noopener">
+        <svg class="boton__icono" aria-hidden="true" focusable="false"><use href="#ico-wa"/></svg>
+        <span>Pedir cita por WhatsApp<span class="oculto"> (se abre en otra pestaña)</span></span>
+      </a>
+    </div>
+  </div>
+</div>
+</header>
+
+<main id="contenido">
+
+<section class="portada" data-portada>
+  <div class="portada__foto">
+    <picture>
+      <source media="(min-width: 768px)" type="image/avif" srcset="img/portada-ancha-1200.avif 1200w, img/portada-ancha-2000.avif 2000w" sizes="(min-width: 1200px) 70vw, 100vw" width="2000" height="1293">
+      <source media="(min-width: 768px)" type="image/webp" srcset="img/portada-ancha-1200.webp 1200w, img/portada-ancha-2000.webp 2000w" sizes="(min-width: 1200px) 70vw, 100vw" width="2000" height="1293">
+      <source type="image/avif" srcset="img/portada-alta-600.avif 600w, img/portada-alta-900.avif 900w, img/portada-alta-1200.avif 1200w" sizes="100vw">
+      <img class="portada__imagen" src="img/portada-alta-600.webp" srcset="img/portada-alta-600.webp 600w, img/portada-alta-900.webp 900w, img/portada-alta-1200.webp 1200w" sizes="100vw" width="1200" height="1032" alt="Consultorio dental luminoso, con un sillón verde en el centro de la sala." fetchpriority="high">
+    </picture>
+    <p class="etiqueta etiqueta--foto portada__referencia">Foto referencial</p>
+  </div>
+  <div class="contenedor portada__fila">
+    <h1 class="portada__titulo"><span class="portada__linea"><span>Tu dentista</span></span> <span class="portada__linea"><span>en Chorrillos.</span></span></h1>
+    <p class="portada__bajada">Te explicamos cada paso y te damos el precio antes de empezar.</p>
+    <div class="portada__accion">
+      <a class="boton boton--primario boton--sobre-claro portada__boton" href="https://wa.me/51993339301?text=Prueba%20desde%20la%20muestra%20de%20Dental%20Morro.%0AHola%2C%20quiero%20una%20cita%20en%20Dental%20Morro.%0A%C2%BFMe%20pueden%20atender%3F" target="_blank" rel="noopener">
+        <svg class="boton__icono" aria-hidden="true" focusable="false"><use href="#ico-wa"/></svg>
+        <span>Pedir cita por WhatsApp<span class="oculto"> (se abre en otra pestaña)</span></span>
+      </a>
+      <a class="enlace portada__ver" href="#tratamientos">Ver tratamientos</a>
+    </div>
+    <div class="portada__datos">
+      <p class="estado estado--claro portada__estado" data-estado="largo"><span class="estado__punto" aria-hidden="true"></span><span data-estado-texto>Lunes a sábado, desde las 9:00&nbsp;a.&nbsp;m.</span></p>
+      <p class="portada__direccion">Av. Ejemplo 123, Chorrillos</p>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" id="tratamientos" aria-labelledby="titulo-tratamientos">
+  <div class="contenedor seccion__pila">
+    <div class="seccion__titulo">
+      <h2 id="titulo-tratamientos">Tratamientos</h2>
+      <p class="seccion__bajada">Toda atención empieza con una revisión. Elige un tratamiento y pide tu cita con ese motivo.</p>
+    </div>
+    <ul class="tratamientos" role="list">
+      <li class="tratamiento">
+<svg class="icono" viewBox="0 0 56 56" width="56" height="56" aria-hidden="true" focusable="false"><g transform="translate(1 7) scale(.88)"><path class="icono__trazo" pathLength="1" d="M28 12c-3 0-5-1.6-8.4-1.6C14 10.4 10.4 14.6 10.4 20.6c0 4.4 1.5 7.6 2.6 11.2 1.2 4 1.4 8.9 2.6 12.2.7 1.8 1.6 2.8 3 2.8 3.5 0 3.3-11 9.4-11s5.9 11 9.4 11c1.4 0 2.3-1 3-2.8 1.2-3.3 1.4-8.2 2.6-12.2 1.1-3.6 2.6-6.8 2.6-11.2 0-6-3.6-10.2-9.2-10.2C33 10.4 31 12 28 12z"/></g><path class="icono__detalle icono__rayo" d="M46 3l-6 10h7l-6 10"/></svg>
+        <div class="tratamiento__texto">
+          <h3 class="tratamiento__nombre">Urgencias</h3>
+          <p class="tratamiento__detalle">Dolor, un golpe o la muela del juicio. Si estamos abiertos, hacemos lo posible por verte el mismo día.</p>
+          <a class="enlace tratamiento__enlace" href="https://wa.me/51993339301?text=Prueba%20desde%20la%20muestra%20de%20Dental%20Morro.%0AHola%2C%20quiero%20una%20cita%20en%20Dental%20Morro%20por%20una%20urgencia.%0A%C2%BFMe%20pueden%20atender%3F" target="_blank" rel="noopener">Pedir cita<span class="oculto"> por una urgencia (se abre en otra pestaña)</span></a>
+        </div>
+      </li>
+      <li class="tratamiento">
+<svg class="icono" viewBox="0 0 56 56" width="56" height="56" aria-hidden="true" focusable="false"><g transform="translate(1 7) scale(.88)"><path class="icono__trazo" pathLength="1" d="M28 12c-3 0-5-1.6-8.4-1.6C14 10.4 10.4 14.6 10.4 20.6c0 4.4 1.5 7.6 2.6 11.2 1.2 4 1.4 8.9 2.6 12.2.7 1.8 1.6 2.8 3 2.8 3.5 0 3.3-11 9.4-11s5.9 11 9.4 11c1.4 0 2.3-1 3-2.8 1.2-3.3 1.4-8.2 2.6-12.2 1.1-3.6 2.6-6.8 2.6-11.2 0-6-3.6-10.2-9.2-10.2C33 10.4 31 12 28 12z"/></g><g class="icono__detalle"><circle cx="44" cy="10" r="4"/><circle cx="51" cy="19" r="2.2"/><circle cx="37" cy="4" r="1.8"/></g></svg>
+        <div class="tratamiento__texto">
+          <h3 class="tratamiento__nombre">Limpieza</h3>
+          <p class="tratamiento__detalle">Limpieza con ultrasonido y revisión completa. Lo ideal es venir cada seis meses.</p>
+          <a class="enlace tratamiento__enlace" href="https://wa.me/51993339301?text=Prueba%20desde%20la%20muestra%20de%20Dental%20Morro.%0AHola%2C%20quiero%20una%20cita%20en%20Dental%20Morro%20para%20una%20limpieza.%0A%C2%BFMe%20pueden%20atender%3F" target="_blank" rel="noopener">Pedir cita<span class="oculto"> para una limpieza (se abre en otra pestaña)</span></a>
+        </div>
+      </li>
+      <li class="tratamiento">
+<svg class="icono" viewBox="0 0 56 56" width="56" height="56" aria-hidden="true" focusable="false"><g transform="translate(1 7) scale(.88)"><path class="icono__trazo" pathLength="1" d="M28 12c-3 0-5-1.6-8.4-1.6C14 10.4 10.4 14.6 10.4 20.6c0 4.4 1.5 7.6 2.6 11.2 1.2 4 1.4 8.9 2.6 12.2.7 1.8 1.6 2.8 3 2.8 3.5 0 3.3-11 9.4-11s5.9 11 9.4 11c1.4 0 2.3-1 3-2.8 1.2-3.3 1.4-8.2 2.6-12.2 1.1-3.6 2.6-6.8 2.6-11.2 0-6-3.6-10.2-9.2-10.2C33 10.4 31 12 28 12z"/><rect class="icono__detalle icono__relleno" x="20" y="18" width="16" height="11" rx="5.5"/></g></svg>
+        <div class="tratamiento__texto">
+          <h3 class="tratamiento__nombre">Curaciones y endodoncia</h3>
+          <p class="tratamiento__detalle">Tratamos la caries a tiempo. Sacar la muela es la última opción.</p>
+          <a class="enlace tratamiento__enlace" href="https://wa.me/51993339301?text=Prueba%20desde%20la%20muestra%20de%20Dental%20Morro.%0AHola%2C%20quiero%20una%20cita%20en%20Dental%20Morro%20para%20una%20curaci%C3%B3n.%0A%C2%BFMe%20pueden%20atender%3F" target="_blank" rel="noopener">Pedir cita<span class="oculto"> para una curación (se abre en otra pestaña)</span></a>
+        </div>
+      </li>
+      <li class="tratamiento">
+<svg class="icono" viewBox="0 0 56 56" width="56" height="56" aria-hidden="true" focusable="false"><g transform="translate(1 7) scale(.88)"><path class="icono__trazo" pathLength="1" d="M28 12c-3 0-5-1.6-8.4-1.6C14 10.4 10.4 14.6 10.4 20.6c0 4.4 1.5 7.6 2.6 11.2 1.2 4 1.4 8.9 2.6 12.2.7 1.8 1.6 2.8 3 2.8 3.5 0 3.3-11 9.4-11s5.9 11 9.4 11c1.4 0 2.3-1 3-2.8 1.2-3.3 1.4-8.2 2.6-12.2 1.1-3.6 2.6-6.8 2.6-11.2 0-6-3.6-10.2-9.2-10.2C33 10.4 31 12 28 12z"/><g class="icono__detalle"><path d="M1 26h54"/><rect class="icono__relleno" x="22" y="20" width="12" height="12" rx="3"/></g></g></svg>
+        <div class="tratamiento__texto">
+          <h3 class="tratamiento__nombre">Ortodoncia</h3>
+          <p class="tratamiento__detalle">Brackets y alineadores, con el plan y el costo claros desde el primer día.</p>
+          <a class="enlace tratamiento__enlace" href="https://wa.me/51993339301?text=Prueba%20desde%20la%20muestra%20de%20Dental%20Morro.%0AHola%2C%20quiero%20una%20cita%20en%20Dental%20Morro%20para%20una%20evaluaci%C3%B3n%20de%20ortodoncia.%0A%C2%BFMe%20pueden%20atender%3F" target="_blank" rel="noopener">Pedir cita<span class="oculto"> para una evaluación de ortodoncia (se abre en otra pestaña)</span></a>
+        </div>
+      </li>
+      <li class="tratamiento">
+<svg class="icono" viewBox="0 0 56 56" width="56" height="56" aria-hidden="true" focusable="false"><g transform="translate(1 7) scale(.88)"><path class="icono__trazo" pathLength="1" d="M28 12c-3 0-5-1.6-8.4-1.6C14 10.4 10.4 14.6 10.4 20.6c0 4.4 1.5 7.6 2.6 11.2 1.2 4 1.4 8.9 2.6 12.2.7 1.8 1.6 2.8 3 2.8 3.5 0 3.3-11 9.4-11s5.9 11 9.4 11c1.4 0 2.3-1 3-2.8 1.2-3.3 1.4-8.2 2.6-12.2 1.1-3.6 2.6-6.8 2.6-11.2 0-6-3.6-10.2-9.2-10.2C33 10.4 31 12 28 12z"/></g><g class="icono__detalle"><path class="icono__relleno" d="M44 2l2.2 6.3L52.5 10.500l-6.3 2.2L44 19l-2.2-6.3-6.3-2.2 6.300-2.2z"/></g></svg>
+        <div class="tratamiento__texto">
+          <h3 class="tratamiento__nombre">Estética</h3>
+          <p class="tratamiento__detalle">Blanqueamiento y carillas, después de revisar que tus dientes estén sanos.</p>
+          <a class="enlace tratamiento__enlace" href="https://wa.me/51993339301?text=Prueba%20desde%20la%20muestra%20de%20Dental%20Morro.%0AHola%2C%20quiero%20una%20cita%20en%20Dental%20Morro%20para%20una%20consulta%20de%20est%C3%A9tica%20dental.%0A%C2%BFMe%20pueden%20atender%3F" target="_blank" rel="noopener">Pedir cita<span class="oculto"> para una consulta de estética dental (se abre en otra pestaña)</span></a>
+        </div>
+      </li>
+      <li class="tratamiento">
+<svg class="icono" viewBox="0 0 56 56" width="56" height="56" aria-hidden="true" focusable="false"><path class="icono__trazo" pathLength="1" d="M18 6c3.200 0 5 1.400 10 1.400S34.800 6 38 6c4.400 0 7 3.300 7 7.500 0 3.200-1.100 5.600-2.100 8.500H13.100C12.100 19.100 11 16.700 11 13.500 11 9.300 13.600 6 18 6z"/><path class="icono__detalle" d="M23 22v5h10v-5M20 32h16M22 38h12M24.500 44h7M28 44v6"/></svg>
+        <div class="tratamiento__texto">
+          <h3 class="tratamiento__nombre">Implantes</h3>
+          <p class="tratamiento__detalle">Reponemos dientes perdidos, con un plan por etapas.</p>
+          <a class="enlace tratamiento__enlace" href="https://wa.me/51993339301?text=Prueba%20desde%20la%20muestra%20de%20Dental%20Morro.%0AHola%2C%20quiero%20una%20cita%20en%20Dental%20Morro%20para%20una%20evaluaci%C3%B3n%20de%20implantes.%0A%C2%BFMe%20pueden%20atender%3F" target="_blank" rel="noopener">Pedir cita<span class="oculto"> para una evaluación de implantes (se abre en otra pestaña)</span></a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="seccion atendemos" id="como-atendemos" aria-labelledby="titulo-atendemos">
+  <div class="contenedor">
+    <div class="seccion__titulo atendemos__cabeza"><h2 id="titulo-atendemos">Cómo atendemos</h2></div>
+    <figure class="banda-foto">
+      <picture>
+        <source media="(min-width: 1200px)" type="image/avif" srcset="img/manos-ancha-1200.avif 1200w, img/manos-ancha-1800.avif 1800w" sizes="min(100vw - 96px, 1200px)" width="1800" height="528">
+        <source media="(min-width: 1200px)" type="image/webp" srcset="img/manos-ancha-1200.webp 1200w, img/manos-ancha-1800.webp 1800w" sizes="min(100vw - 96px, 1200px)" width="1800" height="528">
+        <source type="image/avif" srcset="img/manos-640.avif 640w, img/manos-960.avif 960w, img/manos-1280.avif 1280w" sizes="(min-width: 768px) calc(100vw - 96px), calc(100vw - 48px)">
+        <img class="foto__imagen" src="img/manos-640.webp" srcset="img/manos-640.webp 640w, img/manos-960.webp 960w, img/manos-1280.webp 1280w" sizes="(min-width: 768px) calc(100vw - 96px), calc(100vw - 48px)" width="1280" height="718" alt="Manos con guantes preparan el instrumental sobre la bandeja del sillón dental." loading="lazy" decoding="async">
+      </picture>
+      <figcaption class="etiqueta etiqueta--foto">Foto referencial</figcaption>
+    </figure>
+    <ul class="promesas" role="list">
+      <li class="promesa">
+        <h3 class="promesa__frase">Respetamos tu hora.</h3>
+        <p class="promesa__detalle">Si nos atrasamos, te avisamos por WhatsApp.</p>
+      </li>
+      <li class="promesa">
+        <h3 class="promesa__frase">El precio va primero.</h3>
+        <p class="promesa__detalle">Te damos el presupuesto por escrito y tú decides. Sin cobros que no esperabas.</p>
+      </li>
+      <li class="promesa">
+        <h3 class="promesa__frase">Pagas a tu manera.</h3>
+        <p class="promesa__detalle">Yape, Plin, tarjeta o efectivo. Los tratamientos largos se pagan por partes.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="seccion seccion--campo videos" id="videos" aria-labelledby="titulo-videos">
+  <div class="contenedor seccion__pila">
+    <div class="seccion__titulo">
+      <h2 id="titulo-videos">Así es tu cita</h2>
+      <p class="seccion__bajada">Te mostramos cómo te atendemos antes de que vengas.</p>
+      <p class="etiqueta etiqueta--campo">Videos de ejemplo</p>
+    </div>
+    <ul class="videos__lista" role="list">
+      <li class="video video--grande">
+        <h3 class="video__titulo">Te explicamos tu radiografía</h3>
+        <div class="video__marco" data-video>
+          <picture>
+            <source type="image/avif" srcset="img/video-radiografia-640.avif 640w, img/video-radiografia-960.avif 960w, img/video-radiografia-1280.avif 1280w" sizes="(min-width: 1200px) 820px, (min-width: 768px) calc(100vw - 96px), calc(100vw - 48px)">
+            <img class="foto__imagen" src="img/video-radiografia-640.webp" srcset="img/video-radiografia-640.webp 640w, img/video-radiografia-960.webp 960w, img/video-radiografia-1280.webp 1280w" sizes="(min-width: 1200px) 820px, (min-width: 768px) calc(100vw - 96px), calc(100vw - 48px)" width="1280" height="720" alt="Un dentista con mascarilla le muestra una radiografía a una paciente." loading="lazy" decoding="async">
+          </picture>
+          <span class="etiqueta etiqueta--foto">Video referencial</span>
+          <a class="video__reproducir" href="video/radiografia.mp4" target="_blank" rel="noopener" aria-label="Ver el video, 12 segundos, sin sonido"><svg class="video__icono" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="32"/><path d="M26 20.5v23L44 32 26 20.5z"/></svg></a>
+        </div>
+      </li>
+      <li class="video">
+        <h3 class="video__titulo">Dejamos todo listo antes de que entres</h3>
+        <div class="video__marco" data-video>
+          <picture>
+            <source type="image/avif" srcset="img/video-preparacion-640.avif 640w, img/video-preparacion-960.avif 960w" sizes="(min-width: 1200px) 356px, (min-width: 768px) calc(50vw - 60px), calc(100vw - 48px)">
+            <img class="foto__imagen" src="img/video-preparacion-640.webp" srcset="img/video-preparacion-640.webp 640w, img/video-preparacion-960.webp 960w" sizes="(min-width: 1200px) 356px, (min-width: 768px) calc(50vw - 60px), calc(100vw - 48px)" width="960" height="540" alt="Una asistente y un dentista preparan el sillón y el instrumental en la sala." loading="lazy" decoding="async">
+          </picture>
+          <span class="etiqueta etiqueta--foto">Video referencial</span>
+          <a class="video__reproducir" href="video/preparacion.mp4" target="_blank" rel="noopener" aria-label="Ver el video, 12 segundos, sin sonido"><svg class="video__icono" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="32"/><path d="M26 20.5v23L44 32 26 20.5z"/></svg></a>
+        </div>
+      </li>
+      <li class="video">
+        <h3 class="video__titulo">Revisamos sin apuro</h3>
+        <div class="video__marco" data-video>
+          <picture>
+            <source type="image/avif" srcset="img/video-revision-640.avif 640w, img/video-revision-960.avif 960w" sizes="(min-width: 1200px) 356px, (min-width: 768px) calc(50vw - 60px), calc(100vw - 48px)">
+            <img class="foto__imagen" src="img/video-revision-640.webp" srcset="img/video-revision-640.webp 640w, img/video-revision-960.webp 960w" sizes="(min-width: 1200px) 356px, (min-width: 768px) calc(50vw - 60px), calc(100vw - 48px)" width="960" height="540" alt="El dentista revisa la boca de una paciente recostada en el sillón." loading="lazy" decoding="async">
+          </picture>
+          <span class="etiqueta etiqueta--foto">Video referencial</span>
+          <a class="video__reproducir" href="video/revision.mp4" target="_blank" rel="noopener" aria-label="Ver el video, 10 segundos, sin sonido"><svg class="video__icono" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><circle cx="32" cy="32" r="32"/><path d="M26 20.5v23L44 32 26 20.5z"/></svg></a>
+        </div>
+      </li>
+    </ul>
+    <p class="videos__nota">Videos de otro consultorio, solo como ejemplo. En la web de un consultorio van los suyos.</p>
+  </div>
+</section>
+
+<section class="seccion seccion--suave" id="equipo" aria-labelledby="titulo-equipo">
+  <div class="contenedor seccion__pila">
+    <div class="seccion__titulo">
+      <h2 id="titulo-equipo">Quién te atiende</h2>
+      <p class="seccion__bajada">Tres especialistas en un solo consultorio.</p>
+      <p class="etiqueta etiqueta--claro">Equipo de ejemplo</p>
+    </div>
+    <div class="equipo">
+      <ul class="personas" role="list">
+        <li class="persona">
+          <span class="persona__inicial" aria-hidden="true">L</span>
+          <div class="persona__datos"><h3 class="persona__nombre">Dra. Lucía</h3><p class="persona__especialidad">Odontología general y estética</p></div>
+        </li>
+        <li class="persona">
+          <span class="persona__inicial" aria-hidden="true">M</span>
+          <div class="persona__datos"><h3 class="persona__nombre">Dr. Marco</h3><p class="persona__especialidad">Ortodoncia e implantes</p></div>
+        </li>
+        <li class="persona">
+          <span class="persona__inicial" aria-hidden="true">P</span>
+          <div class="persona__datos"><h3 class="persona__nombre">Dra. Paola</h3><p class="persona__especialidad">Odontopediatría y endodoncia</p></div>
+        </li>
+      </ul>
+      <figure class="foto">
+        <picture>
+          <source type="image/avif" srcset="img/consultorio-640.avif 640w, img/consultorio-960.avif 960w, img/consultorio-1280.avif 1280w" sizes="(min-width: 1200px) 560px, min(100vw - 48px, 672px)">
+          <img class="foto__imagen" src="img/consultorio-640.webp" srcset="img/consultorio-640.webp 640w, img/consultorio-960.webp 960w, img/consultorio-1280.webp 1280w" sizes="(min-width: 1200px) 560px, min(100vw - 48px, 672px)" width="1280" height="737" alt="Una asistente con mascarilla y guantes prepara la mesa de instrumentos, en una sala clara." loading="lazy" decoding="async">
+        </picture>
+        <figcaption class="etiqueta etiqueta--foto">Foto referencial</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" id="casos" aria-labelledby="titulo-casos">
+  <div class="contenedor seccion__pila">
+    <div class="seccion__titulo">
+      <h2 id="titulo-casos">Antes y después</h2>
+      <p class="seccion__bajada">Cada boca es distinta. En tu primera cita te decimos qué se puede lograr en la tuya.</p>
+      <p class="etiqueta etiqueta--claro">Casos de ejemplo</p>
+    </div>
+    <ul class="casos" role="list">
+      <li class="caso">
+        <div class="caso__fotos">
+          <figure class="caso__panel">
+            <picture>
+              <source type="image/avif" srcset="img/caso-carillas-antes-420.avif 420w, img/caso-carillas-antes-800.avif 800w" sizes="(min-width: 1200px) 379px, (min-width: 768px) calc(50vw - 49px), calc(100vw - 48px)">
+              <img class="foto__imagen" src="img/caso-carillas-antes-420.webp" srcset="img/caso-carillas-antes-420.webp 420w, img/caso-carillas-antes-800.webp 800w" sizes="(min-width: 1200px) 379px, (min-width: 768px) calc(50vw - 49px), calc(100vw - 48px)" width="800" height="355" alt="Dientes de adelante amarillentos y desparejos." loading="lazy" decoding="async">
+            </picture>
+            <figcaption class="etiqueta etiqueta--foto">Antes</figcaption>
+          </figure>
+          <figure class="caso__panel">
+            <picture>
+              <source type="image/avif" srcset="img/caso-carillas-despues-420.avif 420w, img/caso-carillas-despues-800.avif 800w" sizes="(min-width: 1200px) 379px, (min-width: 768px) calc(50vw - 49px), calc(100vw - 48px)">
+              <img class="foto__imagen" src="img/caso-carillas-despues-420.webp" srcset="img/caso-carillas-despues-420.webp 420w, img/caso-carillas-despues-800.webp 800w" sizes="(min-width: 1200px) 379px, (min-width: 768px) calc(50vw - 49px), calc(100vw - 48px)" width="800" height="354" alt="Dientes de adelante parejos y más claros, con carillas." loading="lazy" decoding="async">
+            </picture>
+            <figcaption class="etiqueta etiqueta--foto">Después</figcaption>
+          </figure>
+        </div>
+        <div class="caso__pie">
+          <div class="caso__texto">
+            <h3 class="caso__nombre">Carillas</h3>
+            <p class="caso__detalle">En los dientes de adelante, para mejorar forma y color.</p>
+          </div>
+        </div>
+      </li>
+      <li class="caso">
+        <div class="caso__fotos">
+          <figure class="caso__panel">
+            <picture>
+              <source type="image/avif" srcset="img/caso-limpieza-antes-420.avif 420w, img/caso-limpieza-antes-800.avif 800w" sizes="(min-width: 1200px) 379px, (min-width: 768px) calc(50vw - 49px), calc(100vw - 48px)">
+              <img class="foto__imagen" src="img/caso-limpieza-antes-420.webp" srcset="img/caso-limpieza-antes-420.webp 420w, img/caso-limpieza-antes-800.webp 800w" sizes="(min-width: 1200px) 379px, (min-width: 768px) calc(50vw - 49px), calc(100vw - 48px)" width="800" height="355" alt="Sarro amarillo junto a las encías de los dientes de abajo." loading="lazy" decoding="async">
+            </picture>
+            <figcaption class="etiqueta etiqueta--foto">Antes</figcaption>
+          </figure>
+          <figure class="caso__panel">
+            <picture>
+              <source type="image/avif" srcset="img/caso-limpieza-despues-420.avif 420w, img/caso-limpieza-despues-800.avif 800w" sizes="(min-width: 1200px) 379px, (min-width: 768px) calc(50vw - 49px), calc(100vw - 48px)">
+              <img class="foto__imagen" src="img/caso-limpieza-despues-420.webp" srcset="img/caso-limpieza-despues-420.webp 420w, img/caso-limpieza-despues-800.webp 800w" sizes="(min-width: 1200px) 379px, (min-width: 768px) calc(50vw - 49px), calc(100vw - 48px)" width="800" height="356" alt="Los mismos dientes limpios, sin sarro." loading="lazy" decoding="async">
+            </picture>
+            <figcaption class="etiqueta etiqueta--foto">Después</figcaption>
+          </figure>
+        </div>
+        <div class="caso__pie">
+          <div class="caso__texto">
+            <h3 class="caso__nombre">Limpieza</h3>
+            <p class="caso__detalle">Se retira el sarro. La segunda foto es de nueve días después.</p>
+          </div>
+        </div>
+      </li>
+      <li class="caso">
+        <div class="caso__fotos">
+          <figure class="caso__panel">
+            <picture>
+              <source type="image/avif" srcset="img/caso-implantes-antes-420.avif 420w, img/caso-implantes-antes-640.avif 640w" sizes="(min-width: 1200px) 379px, (min-width: 768px) calc(50vw - 49px), calc(100vw - 48px)">
+              <img class="foto__imagen" src="img/caso-implantes-antes-420.webp" srcset="img/caso-implantes-antes-420.webp 420w, img/caso-implantes-antes-640.webp 640w" sizes="(min-width: 1200px) 379px, (min-width: 768px) calc(50vw - 49px), calc(100vw - 48px)" width="640" height="285" alt="Boca a la que le quedan muy pocos dientes." loading="lazy" decoding="async">
+            </picture>
+            <figcaption class="etiqueta etiqueta--foto">Antes</figcaption>
+          </figure>
+          <figure class="caso__panel">
+            <picture>
+              <source type="image/avif" srcset="img/caso-implantes-despues-420.avif 420w, img/caso-implantes-despues-640.avif 640w" sizes="(min-width: 1200px) 379px, (min-width: 768px) calc(50vw - 49px), calc(100vw - 48px)">
+              <img class="foto__imagen" src="img/caso-implantes-despues-420.webp" srcset="img/caso-implantes-despues-420.webp 420w, img/caso-implantes-despues-640.webp 640w" sizes="(min-width: 1200px) 379px, (min-width: 768px) calc(50vw - 49px), calc(100vw - 48px)" width="640" height="285" alt="Dos arcos completos de dientes fijos sobre implantes." loading="lazy" decoding="async">
+            </picture>
+            <figcaption class="etiqueta etiqueta--foto">Después</figcaption>
+          </figure>
+        </div>
+        <div class="caso__pie">
+          <div class="caso__texto">
+            <h3 class="caso__nombre">Implantes</h3>
+            <p class="caso__detalle">Dientes fijos sobre implantes, cuando quedan pocas piezas.</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <p class="casos__nota">Fotos de otros consultorios, solo como ejemplo. En la web de un consultorio van sus casos, con permiso de cada paciente.</p>
+  </div>
+</section>
+
+<section class="seccion seccion--campo" id="resenas" aria-labelledby="titulo-resenas">
+  <div class="contenedor seccion__pila">
+    <div class="nota-google">
+      <p class="nota-google__cifra" aria-hidden="true">4,9</p>
+      <div class="nota-google__detalle">
+        <h2 class="nota-google__texto" id="titulo-resenas"><span class="oculto">4,9 </span>en Google, con 128 reseñas</h2>
+        <p class="etiqueta etiqueta--campo">Reseñas de ejemplo</p>
+      </div>
+    </div>
+    <ul class="resenas" role="list">
+      <li class="resena">
+        <blockquote class="resena__texto">«Fui por un dolor de muela y me atendieron el mismo día. Me explicaron todo antes de empezar.»</blockquote>
+        <p class="resena__autor"><span>Carla R.</span></p>
+      </li>
+      <li class="resena">
+        <blockquote class="resena__texto">«Me dieron el presupuesto por escrito y al final pagué exactamente eso.»</blockquote>
+        <p class="resena__autor"><span>Jorge M.</span></p>
+      </li>
+      <li class="resena">
+        <blockquote class="resena__texto">«Mi hijo entró llorando y salió con su sticker. Volvemos en seis meses.»</blockquote>
+        <p class="resena__autor"><span>Rosa T.</span></p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="seccion" id="donde-estamos" aria-labelledby="titulo-donde">
+  <div class="contenedor seccion__pila">
+    <div class="seccion__titulo"><h2 id="titulo-donde">Dónde estamos</h2></div>
+    <div class="ubicacion">
+      <div class="ubicacion__datos">
+        <div class="direccion">
+          <h3 class="direccion__calle">Av. Ejemplo 123, Chorrillos</h3>
+          <p class="direccion__referencia">A dos cuadras de la municipalidad. Hay estacionamiento en la puerta.</p>
+        </div>
+        <dl class="horario">
+          <div class="horario__fila"><dt>Lunes a viernes</dt><dd>9:00&nbsp;a.&nbsp;m. a 8:00&nbsp;p.&nbsp;m.</dd></div>
+          <div class="horario__fila"><dt>Sábado</dt><dd>9:00&nbsp;a.&nbsp;m. a 2:00&nbsp;p.&nbsp;m.</dd></div>
+          <div class="horario__fila"><dt>Domingo</dt><dd>Cerrado</dd></div>
+        </dl>
+        <a class="boton boton--contorno boton--claro" href="https://www.google.com/maps/search/?api=1&amp;query=Chorrillos%2C%20Lima" target="_blank" rel="noopener">Cómo llegar<span class="oculto"> (abre Google Maps en otra pestaña; la dirección es de ejemplo)</span></a>
+      </div>
+      <div class="mapa" role="img" aria-label="Mapa de muestra: el consultorio está sobre la Av. Ejemplo, a dos cuadras de la municipalidad.">
+        <svg class="mapa__calles" aria-hidden="true" focusable="false">
+          <line x1="-5%" y1="62%" x2="105%" y2="38%" stroke-width="14"/>
+          <line x1="30%" y1="-10%" x2="52%" y2="110%" stroke-width="10"/>
+          <line x1="-5%" y1="27%" x2="105%" y2="11%" stroke-width="5"/>
+          <line x1="-5%" y1="88%" x2="105%" y2="70%" stroke-width="5"/>
+          <line x1="8%" y1="-10%" x2="24%" y2="110%" stroke-width="5"/>
+          <line x1="62%" y1="-10%" x2="80%" y2="110%" stroke-width="5"/>
+          <line x1="82%" y1="-10%" x2="93%" y2="110%" stroke-width="5"/>
+        </svg>
+        <span class="mapa__punto"></span>
+        <span class="mapa__rotulo mapa__rotulo--avenida">Av. Ejemplo</span>
+        <span class="mapa__rotulo mapa__rotulo--muni">Municipalidad</span>
+        <span class="etiqueta etiqueta--foto mapa__etiqueta">Mapa de muestra</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion seccion--suave preguntas" id="preguntas" aria-labelledby="titulo-preguntas">
+  <div class="contenedor preguntas__fila">
+    <div class="seccion__titulo"><h2 id="titulo-preguntas">Preguntas frecuentes</h2></div>
+    <div class="preguntas__lista">
+      <details class="pregunta" name="preguntas" open>
+        <summary><span class="pregunta__texto">¿Cuánto me va a costar?</span><svg class="pregunta__signo" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M6 12H18"/><path class="pregunta__palo" d="M12 6V18"/></svg></summary>
+        <p class="pregunta__respuesta">Depende de lo que necesites. Antes de empezar te damos el presupuesto por escrito y tú decides.</p>
+      </details>
+      <details class="pregunta" name="preguntas">
+        <summary><span class="pregunta__texto">¿Atienden urgencias el mismo día?</span><svg class="pregunta__signo" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M6 12H18"/><path class="pregunta__palo" d="M12 6V18"/></svg></summary>
+        <p class="pregunta__respuesta">Hacemos lo posible, si estamos abiertos. Escríbenos por WhatsApp, cuéntanos qué pasó y te decimos a qué hora venir.</p>
+      </details>
+      <details class="pregunta" name="preguntas">
+        <summary><span class="pregunta__texto">¿Puedo pagar por partes?</span><svg class="pregunta__signo" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M6 12H18"/><path class="pregunta__palo" d="M12 6V18"/></svg></summary>
+        <p class="pregunta__respuesta">Sí. Los tratamientos largos, como la ortodoncia o los implantes, se pagan por etapas. Aceptamos Yape, Plin, tarjeta y efectivo.</p>
+      </details>
+      <details class="pregunta" name="preguntas">
+        <summary><span class="pregunta__texto">¿Atienden niños?</span><svg class="pregunta__signo" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M6 12H18"/><path class="pregunta__palo" d="M12 6V18"/></svg></summary>
+        <p class="pregunta__respuesta">Sí, tenemos odontopediatra. La primera cita es para que conozca el consultorio sin apuro.</p>
+      </details>
+      <details class="pregunta" name="preguntas">
+        <summary><span class="pregunta__texto">¿Trabajan con seguros?</span><svg class="pregunta__signo" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M6 12H18"/><path class="pregunta__palo" d="M12 6V18"/></svg></summary>
+        <p class="pregunta__respuesta">Depende del seguro. Escríbenos con el nombre del tuyo y te confirmamos si lo recibimos.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="seccion seccion--campo cierre" id="cierre" aria-labelledby="titulo-cierre">
+  <div class="contenedor cierre__fila">
+    <h2 class="cierre__titulo" id="titulo-cierre">¿Te duele algo <br>o te toca control?</h2>
+    <p class="seccion__bajada cierre__bajada">Escríbenos y te respondemos con tu cita.</p>
+    <a class="boton boton--primario cierre__boton" href="https://wa.me/51993339301?text=Prueba%20desde%20la%20muestra%20de%20Dental%20Morro.%0AHola%2C%20quiero%20una%20cita%20en%20Dental%20Morro.%0A%C2%BFMe%20pueden%20atender%3F" data-boton-cierre target="_blank" rel="noopener">
+      <svg class="boton__icono" aria-hidden="true" focusable="false"><use href="#ico-wa"/></svg>
+      <span>Pedir cita por WhatsApp<span class="oculto"> (se abre en otra pestaña)</span></span>
+    </a>
+    <p class="estado estado--campo" data-estado="largo"><span class="estado__punto" aria-hidden="true"></span><span data-estado-texto>Lunes a viernes de 9:00&nbsp;a.&nbsp;m. a 8:00&nbsp;p.&nbsp;m. Sábado hasta las 2:00&nbsp;p.&nbsp;m.</span></p>
+    <p class="cierre__nota">En esta muestra, el mensaje le llega a Angel Cancho con un aviso de prueba; en la web de un consultorio, a su WhatsApp.</p>
+  </div>
+</section>
+
+<section class="consultorio" id="consultorio" aria-labelledby="titulo-consultorio">
+  <div class="contenedor consultorio__pila">
+    <h2 class="consultorio__titulo" id="titulo-consultorio">¿Tienes un consultorio dental?</h2>
+    <p class="consultorio__texto">Esta página es una muestra. La tuya, con tu nombre, tus fotos y tu WhatsApp, cuesta S/&nbsp;900 y puede estar lista en 5 a 7 días hábiles.</p>
+    <a class="boton boton--primario boton--sobre-claro boton--base" href="#incluye" data-abre-incluye>Ver qué incluye<span class="oculto"> tu web</span></a>
+  </div>
+</section>
+
+<dialog class="incluye" id="incluye" aria-labelledby="titulo-incluye">
+  <div class="incluye__panel">
+    <div class="incluye__cabecera">
+      <h2 class="incluye__titulo" id="titulo-incluye">Qué incluye tu web</h2>
+      <form method="dialog" class="incluye__cerrar-forma"><button class="incluye__cerrar" aria-label="Cerrar"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M3 3l10 10M13 3L3 13"/></svg></button></form>
+    </div>
+    <div class="incluye__precio">
+      <p class="incluye__monto">S/&nbsp;900</p>
+      <p class="incluye__plazo">Precio cerrado. Lista en 5 a 7 días hábiles desde que llegan tu primer pago, tus fotos y tus textos.</p>
+    </div>
+    <ul class="incluye__lista" role="list">
+      <li>Con tu nombre, tus fotos, tus videos, tus casos, tus tratamientos, tu horario y las reseñas reales de tu ficha de Google.</li>
+      <li>El paciente toca WhatsApp y te llega un mensaje ya escrito, con el tratamiento que le interesa.</li>
+      <li>La cita llega a tu WhatsApp de siempre. No instalas nada.</li>
+      <li>Se ve bien y abre rápido en celular, tablet y computadora. Te entrego la medición de velocidad de Google.</li>
+      <li>Preparada para que Google muestre tu nombre, tu dirección y tu horario.</li>
+      <li>Sabrás cuántas personas entran y cuántas tocan el botón de WhatsApp.</li>
+      <li>Dos rondas de cambios y 30 días de soporte después de publicar.</li>
+      <li>Tú eliges qué prometer: los textos de esta muestra son un ejemplo.</li>
+    </ul>
+    <ul class="incluye__condiciones" role="list">
+      <li><strong>Pago.</strong> La mitad al empezar y la mitad al publicar, con recibo por honorarios.</li>
+      <li><strong>Dominio.</strong> Es la dirección de tu web y se paga aparte: alrededor de S/&nbsp;60 al año si termina en .com y de S/&nbsp;130 si termina en .pe. Queda a tu nombre y yo lo conecto.</li>
+      <li><strong>Alojamiento.</strong> Gratis para una página así.</li>
+      <li><strong>Libro de Reclamaciones.</strong> El enlace al tuyo va incluido; armar uno virtual se cotiza aparte.</li>
+      <li><strong>Mantenimiento.</strong> Opcional, desde S/&nbsp;80 al mes, sin permanencia.</li>
+    </ul>
+    <div class="incluye__accion">
+      <a class="boton boton--primario boton--sobre-claro boton--base boton--lleno" href="https://wa.me/51993339301?text=Hola%20Angel%2C%20vi%20la%20muestra%20de%20Dental%20Morro%20y%20quiero%20saber%20m%C3%A1s%20sobre%20una%20web%20para%20mi%20consultorio." target="_blank" rel="noopener">
+        <svg class="boton__icono" aria-hidden="true" focusable="false"><use href="#ico-wa"/></svg>
+        <span>Escribirle a Angel por WhatsApp<span class="oculto"> (se abre en otra pestaña)</span></span>
+      </a>
+      <a class="enlace" href="https://angerlessdev.github.io/">Ver otros trabajos de Angel</a>
+    </div>
+  </div>
+</dialog>
+
+<div class="barra" data-barra>
+  <p class="barra__nota" data-barra-nota hidden></p>
+  <a class="boton boton--primario boton--base boton--lleno" href="https://wa.me/51993339301?text=Prueba%20desde%20la%20muestra%20de%20Dental%20Morro.%0AHola%2C%20quiero%20una%20cita%20en%20Dental%20Morro.%0A%C2%BFMe%20pueden%20atender%3F" target="_blank" rel="noopener">
+    <svg class="boton__icono" aria-hidden="true" focusable="false"><use href="#ico-wa"/></svg>
+    <span>Pedir cita por WhatsApp<span class="oculto"> (se abre en otra pestaña)</span></span>
+  </a>
+</div>
+
+</main>
+
+<footer class="pie">
+  <div class="contenedor pie__pila">
+    <div class="marca marca--pie">
+      <svg class="marca__iso" width="28" height="20" aria-hidden="true" focusable="false"><use href="#ico-iso"/></svg>
+      <span class="marca__texto"><span class="marca__nombre">Dental Morro</span><span class="marca__distrito">Chorrillos</span></span>
+    </div>
+    <div class="pie__datos">
+      <p>Av. Ejemplo 123, Chorrillos</p>
+      <p>Lunes a viernes de 9:00&nbsp;a.&nbsp;m. a 8:00&nbsp;p.&nbsp;m. Sábado hasta las 2:00&nbsp;p.&nbsp;m.</p>
+    </div>
+    <div class="pie__enlaces">
+      <a class="enlace enlace--campo" href="#tratamientos">Tratamientos</a>
+      <a class="enlace enlace--campo" href="#donde-estamos">Dónde estamos</a>
+      <a class="enlace enlace--campo" href="#preguntas">Preguntas frecuentes</a>
+      <details class="libro">
+        <summary class="enlace enlace--campo">Libro de Reclamaciones</summary>
+        <p class="libro__nota">Esta es una web de muestra. En la web de un consultorio, aquí va el enlace a su Libro de Reclamaciones.</p>
+      </details>
+      <details class="libro creditos">
+        <summary class="enlace enlace--campo">Créditos de las fotos y los videos</summary>
+        <div class="creditos__cuerpo">
+          <p>Fotos referenciales de Wikimedia Commons, recortadas y con el color ajustado (en la de la portada, además, la ventana esmerilada, el sillón en verde y sin los cuadros de la pared); estas versiones se comparten con la misma licencia.</p>
+          <ul class="creditos__lista" role="list">
+            <li>Portada: <a href="https://commons.wikimedia.org/wiki/File:Kneebreak_dental_chair.jpg" target="_blank" rel="noopener">«Kneebreak dental chair»<span class="oculto"> (se abre en otra pestaña)</span></a>, de Thedentalguy, <a class="pie__licencia" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener">CC&nbsp;BY-SA&nbsp;4.0<span class="oculto"> (se abre en otra pestaña)</span></a>.</li>
+            <li>Cómo atendemos: <a href="https://commons.wikimedia.org/wiki/File:Preparing_Dental_Tools_for_Patient_Treatment.jpg" target="_blank" rel="noopener">«Preparing Dental Tools for Patient Treatment»<span class="oculto"> (se abre en otra pestaña)</span></a>, de Jameswasswa, <a class="pie__licencia" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener">CC&nbsp;BY-SA&nbsp;4.0<span class="oculto"> (se abre en otra pestaña)</span></a>.</li>
+            <li>Carillas: <a href="https://commons.wikimedia.org/wiki/File:Faccette_estetiche_confronto_prima_e_dopo.jpg" target="_blank" rel="noopener">«Faccette estetiche confronto prima e dopo»<span class="oculto"> (se abre en otra pestaña)</span></a>, de Yvul, <a class="pie__licencia" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener">CC&nbsp;BY-SA&nbsp;4.0<span class="oculto"> (se abre en otra pestaña)</span></a>.</li>
+            <li>Limpieza: <a href="https://commons.wikimedia.org/wiki/File:Gingivitis-before-and-after-3.jpg" target="_blank" rel="noopener">«Gingivitis before and after»<span class="oculto"> (se abre en otra pestaña)</span></a>, de Onetimeuseaccount, <a class="pie__licencia" href="https://creativecommons.org/publicdomain/zero/1.0/deed.es" target="_blank" rel="noopener">dominio público (CC0)<span class="oculto"> (se abre en otra pestaña)</span></a>.</li>
+            <li>Implantes: <a href="https://commons.wikimedia.org/wiki/File:Caso_real_implantes_dentales_carga_inmediata_Jesus_Palma_Ortiz2.jpg" target="_blank" rel="noopener">caso de implantes<span class="oculto"> (se abre en otra pestaña)</span></a>, de GrupoMedicodental, <a class="pie__licencia" href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener">CC&nbsp;BY&nbsp;4.0<span class="oculto"> (se abre en otra pestaña)</span></a>.</li>
+            <li>Videos: <a href="https://mixkit.co/free-stock-video/checking-dental-x-rays-12140/" target="_blank" rel="noopener">«Checking dental x-rays»<span class="oculto"> (se abre en otra pestaña)</span></a>, <a href="https://mixkit.co/free-stock-video/dentist-preparing-to-work-12145/" target="_blank" rel="noopener">«Dentist preparing to work»<span class="oculto"> (se abre en otra pestaña)</span></a> y <a href="https://mixkit.co/free-stock-video/dentist-checking-teeth-12146/" target="_blank" rel="noopener">«Dentist checking teeth»<span class="oculto"> (se abre en otra pestaña)</span></a>; la foto de «Quién te atiende» es un cuadro de <a href="https://mixkit.co/free-stock-video/dentists-in-office-12149/" target="_blank" rel="noopener">«Dentists in office»<span class="oculto"> (se abre en otra pestaña)</span></a>. Todos de Mixkit, con su <a class="pie__licencia" href="https://mixkit.co/license/#videoFree" target="_blank" rel="noopener">licencia gratuita de video<span class="oculto"> (se abre en otra pestaña)</span></a>.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+    <p class="pie__muestra">Web de muestra: la clínica, el equipo y las reseñas son ficticios.</p>
+    <a class="enlace enlace--campo pie__autor" href="https://angerlessdev.github.io/">Hecho por Angel Cancho</a>
+  </div>
+</footer>
+
+<script>
+// Datos del negocio. Junto con los textos de index.html, es lo único que cambia de un consultorio a otro.
+(function (raiz) {
+  'use strict';
+
+  var DATOS = {
+    nombre: 'Dental Morro',
+
+    // WhatsApp con código de país y sin signos. En esta muestra es el de Angel Cancho.
+    whatsapp: '51993339301',
+
+    // En la muestra, todo mensaje empieza con esta línea para que quien lo reciba sepa que es una prueba.
+    // En la web de un consultorio se deja vacía: ''.
+    lineaDeMuestra: 'Prueba desde la muestra de Dental Morro.',
+
+    // Lima no cambia de hora en todo el año: UTC−5. El estado «Abierto ahora» usa esta hora, no la del visitante.
+    desfaseUTC: -5,
+
+    // Horario por día de la semana: 0 es domingo y 6 es sábado. null = cerrado. Horas de 24 h, 'HH:MM'.
+    horario: {
+      0: null,
+      1: ['09:00', '20:00'],
+      2: ['09:00', '20:00'],
+      3: ['09:00', '20:00'],
+      4: ['09:00', '20:00'],
+      5: ['09:00', '20:00'],
+      6: ['09:00', '14:00'],
+    },
+
+    // Días que no se atiende aunque el horario diga que sí. 'MM-DD' se repite cada año; 'AAAA-MM-DD' vale una vez;
+    // 'jueves-santo' y 'viernes-santo' cambian de fecha y se calculan solos cada año.
+    // Son un ejemplo: los feriados nacionales del Perú. Cada consultorio pone los suyos (vacaciones, un feriado en que
+    // sí atiende).
+    diasCerrados: [
+      '01-01', 'jueves-santo', 'viernes-santo', '05-01', '06-07', '06-29', '07-23', '07-28', '07-29',
+      '08-06', '08-30', '10-08', '11-01', '12-08', '12-09', '12-25',
+    ],
+
+    // Mensaje del botón de la capa del dueño. Pide información: no compromete a nada a quien lo envía.
+    mensajeDueno: 'Hola Angel, vi la muestra de Dental Morro y quiero saber más sobre una web para mi consultorio.',
+  };
+
+  raiz.DATOS = DATOS;
+  if (typeof module === 'object' && module.exports) module.exports = DATOS;
+})(typeof window !== 'undefined' ? window : globalThis);
+
+// Reglas de la página, sin tocar la pantalla: qué dice el mensaje de WhatsApp y qué dice la página según el horario.
+// Están aparte de app.js para poder probarlas con casos (docs/herramientas/probar-reglas.js). Las tablas con estos
+// casos están en DESIGN.md.
+(function (raiz) {
+  'use strict';
+
+  var DATOS = raiz.DATOS || (typeof require === 'function' ? require('./datos.js') : null);
+  var ESPACIO_FIJO = ' ';
+  var DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+
+  // ---------- Hora ----------
+  function aMinutos(hhmm) {
+    var t = hhmm.split(':');
+    return parseInt(t[0], 10) * 60 + parseInt(t[1], 10);
+  }
+
+  // 540 → «9:00 a. m.» (con espacios fijos, para que no se parta en dos líneas).
+  function horaLegible(minutos) {
+    var h = Math.floor(minutos / 60);
+    var m = minutos % 60;
+    var sufijo = h < 12 ? 'a.' + ESPACIO_FIJO + 'm.' : 'p.' + ESPACIO_FIJO + 'm.';
+    var h12 = h % 12 === 0 ? 12 : h % 12;
+    return h12 + ':' + (m < 10 ? '0' : '') + m + ESPACIO_FIJO + sufijo;
+  }
+
+  // La fecha y la hora de Lima para un instante dado.
+  function enLima(instante) {
+    var d = new Date(instante.getTime() + DATOS.desfaseUTC * 3600000);
+    return {
+      anio: d.getUTCFullYear(),
+      mes: d.getUTCMonth() + 1,
+      dia: d.getUTCDate(),
+      diaSemana: d.getUTCDay(),
+      minutos: d.getUTCHours() * 60 + d.getUTCMinutes(),
+    };
+  }
+
+  function masDias(f, n) {
+    var d = new Date(Date.UTC(f.anio, f.mes - 1, f.dia + n));
+    return { anio: d.getUTCFullYear(), mes: d.getUTCMonth() + 1, dia: d.getUTCDate(), diaSemana: d.getUTCDay(), minutos: 0 };
+  }
+
+  function dos(n) { return (n < 10 ? '0' : '') + n; }
+
+  // Domingo de Pascua de un año (cálculo de Meeus, Jones y Butcher para el calendario gregoriano). Jueves y Viernes
+  // Santo son feriado en el Perú y cambian de fecha cada año: son tres y dos días antes.
+  function pascua(anio) {
+    var a = anio % 19, b = Math.floor(anio / 100), c = anio % 100;
+    var d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3);
+    var h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4;
+    var l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451);
+    var n = h + l - 7 * m + 114;
+    return { anio: anio, mes: Math.floor(n / 31), dia: (n % 31) + 1 };
+  }
+
+  function mismoDia(a, b) { return a.anio === b.anio && a.mes === b.mes && a.dia === b.dia; }
+
+  // Un día de la lista de cerrados: 'MM-DD' (todos los años), 'AAAA-MM-DD' (una vez), 'jueves-santo' o 'viernes-santo'.
+  function esDiaCerrado(f) {
+    var lista = DATOS.diasCerrados;
+    var corta = dos(f.mes) + '-' + dos(f.dia);
+    if (lista.indexOf(corta) !== -1 || lista.indexOf(f.anio + '-' + corta) !== -1) return true;
+    var domingo = pascua(f.anio);
+    if (lista.indexOf('jueves-santo') !== -1 && mismoDia(f, masDias(domingo, -3))) return true;
+    if (lista.indexOf('viernes-santo') !== -1 && mismoDia(f, masDias(domingo, -2))) return true;
+    return false;
+  }
+
+  // [abre, cierra] en minutos, o null si ese día no se atiende.
+  function horarioDelDia(f) {
+    var h = DATOS.horario[f.diaSemana];
+    if (!h || esDiaCerrado(f)) return null;
+    return [aMinutos(h[0]), aMinutos(h[1])];
+  }
+
+  function palabraDelDia(dias, diaSemana) {
+    if (dias === 0) return 'hoy';
+    if (dias === 1) return 'mañana';
+    return 'el ' + DIAS[diaSemana];
+  }
+
+  // Qué se muestra en un instante dado. Seis casos de referencia en DESIGN.md, «El horario decide».
+  function estadoDelHorario(instante) {
+    var hoy = enLima(instante || new Date());
+    var h = horarioDelDia(hoy);
+    var abierto = !!h && hoy.minutos >= h[0] && hoy.minutos < h[1];
+
+    var abre = null; // cuándo vuelve a abrir (solo importa si está cerrado)
+    if (h && hoy.minutos < h[0]) abre = { dias: 0, diaSemana: hoy.diaSemana, minutos: h[0] };
+    var siguiente = null; // el siguiente día que abre, sin contar hoy
+    for (var n = 1; n <= 31 && !siguiente; n++) {
+      var f = masDias(hoy, n);
+      var hf = horarioDelDia(f);
+      if (hf) siguiente = { dias: n, diaSemana: f.diaSemana, minutos: hf[0] };
+    }
+    if (!abre) abre = siguiente;
+
+    var e = {
+      abierto: abierto,
+      corto: abierto ? 'Abierto ahora' : 'Cerrado ahora',
+      largo: '',
+      barra: '',
+    };
+    if (abierto) {
+      e.largo = 'Abierto ahora, hasta las ' + horaLegible(h[1]);
+    } else if (abre) {
+      var cuando = palabraDelDia(abre.dias, abre.diaSemana);
+      e.largo = 'Cerrado. Abrimos ' + cuando + ' a las ' + horaLegible(abre.minutos);
+      // Sin punto final: la abreviatura «a. m.» ya termina en punto.
+      e.barra = 'Estamos cerrados. Te respondemos ' + cuando + ' desde las ' + horaLegible(abre.minutos);
+    } else {
+      e.largo = 'Cerrado';
+    }
+    return e;
+  }
+
+  // ---------- Mensaje ----------
+  // El mensaje ya escrito que abre cada botón. frase: «por una urgencia», en el botón de cada tratamiento.
+  // Devuelve las líneas del mensaje, sin la línea de muestra.
+  function lineasDelMensaje(frase) {
+    return ['Hola, quiero una cita en ' + DATOS.nombre + (frase ? ' ' + frase : '') + '.', '¿Me pueden atender?'];
+  }
+
+  // El enlace que abre WhatsApp con el mensaje escrito. En la muestra antepone la línea que avisa que es una prueba.
+  function enlaceDeWhatsApp(lineas) {
+    var todas = (DATOS.lineaDeMuestra ? [DATOS.lineaDeMuestra] : []).concat(lineas);
+    return 'https://wa.me/' + DATOS.whatsapp + '?text=' + encodeURIComponent(todas.join('\n'));
+  }
+
+  var REGLAS = {
+    horaLegible: horaLegible,
+    enLima: enLima,
+    pascua: pascua,
+    estadoDelHorario: estadoDelHorario,
+    lineasDelMensaje: lineasDelMensaje,
+    enlaceDeWhatsApp: enlaceDeWhatsApp,
+  };
+
+  raiz.REGLAS = REGLAS;
+  if (typeof module === 'object' && module.exports) module.exports = REGLAS;
+})(typeof window !== 'undefined' ? window : globalThis);
+
+// Lo que pasa en la pantalla. Los datos del negocio están en datos.js y las reglas (mensaje y horario) en reglas.js.
+// Sin este archivo la página se ve completa y todos los botones funcionan: los enlaces de WhatsApp ya llevan su mensaje
+// y los videos se abren como archivo.
+(function () {
+  'use strict';
+
+  var D = window.DATOS;
+  var R = window.REGLAS;
+  if (!D || !R) return;
+
+  var doc = document;
+  var raiz = doc.documentElement;
+  var uno = function (sel, dentro) { return (dentro || doc).querySelector(sel); };
+  var todos = function (sel, dentro) { return Array.prototype.slice.call((dentro || doc).querySelectorAll(sel)); };
+  var sinMovimiento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hayObservador = 'IntersectionObserver' in window;
+
+  // La hora de ahora. Para revisar cada caso del horario se puede abrir la página con ?ahora=2026-11-09T21:30
+  // (hora de Lima).
+  function ahora() {
+    var m = /[?&]ahora=(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(window.location.search);
+    if (m) return new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4] - D.desfaseUTC, +m[5]));
+    return new Date();
+  }
+
+  // ---------- Horario ----------
+  var horario = null;
+
+  function pintarHorario() {
+    horario = R.estadoDelHorario(ahora());
+    raiz.setAttribute('data-abierto', String(horario.abierto));
+    todos('[data-estado]').forEach(function (p) {
+      p.setAttribute('data-abierto', String(horario.abierto));
+      uno('[data-estado-texto]', p).textContent = p.getAttribute('data-estado') === 'largo' ? horario.largo : horario.corto;
+    });
+    var nota = uno('[data-barra-nota]');
+    if (nota) {
+      nota.textContent = horario.barra;
+      nota.hidden = !horario.barra;
+    }
+  }
+
+  // ---------- Barra fija del celular y cabecera fija ----------
+  var barra = uno('[data-barra]');
+  var fija = uno('[data-fija]');
+  var panel = uno('#incluye');
+  var portadaALaVista = hayObservador; // el botón de la portada está en pantalla
+  var cierreALaVista = false; // el botón del cierre está en pantalla
+
+  // La barra entra cuando el botón de la portada sale de la pantalla y se esconde con el del cierre a la vista: dos
+  // botones iguales a la vez confunden. Sin observador se queda puesta, para que siempre haya un botón a mano.
+  function pintarBarra() {
+    if (barra) barra.setAttribute('data-oculta', String(portadaALaVista || cierreALaVista || !!(panel && panel.open)));
+  }
+
+  // La barra cambia de alto: con el consultorio cerrado lleva una nota, que en pantallas angostas ocupa dos líneas.
+  // Su alto real se le pasa a la hoja de estilos para que el pie le deje el sitio exacto.
+  function medirBarra() {
+    var alto = barra ? barra.getBoundingClientRect().height : 0;
+    if (alto) raiz.style.setProperty('--barra', alto + 'px');
+  }
+  if (barra && 'ResizeObserver' in window) new ResizeObserver(medirBarra).observe(barra);
+
+  if (hayObservador) {
+    // Solo cuenta si el botón se ve entero: en una ventana baja o con la letra agrandada puede asomar apenas.
+    var botonPortada = uno('.portada__boton');
+    if (barra && botonPortada) {
+      new IntersectionObserver(function (entradas) {
+        portadaALaVista = entradas[0].intersectionRatio >= 0.99;
+        pintarBarra();
+      }, { threshold: [0, 0.99, 1] }).observe(botonPortada);
+    }
+    var botonCierre = uno('[data-boton-cierre]');
+    if (barra && botonCierre) {
+      new IntersectionObserver(function (entradas) {
+        cierreALaVista = entradas[0].isIntersecting;
+        pintarBarra();
+      }, { rootMargin: '0px 0px -78px 0px' }).observe(botonCierre);
+    }
+    // La cabecera fija entra cuando la portada ya pasó por debajo de ella (mide 79 px): así un enlace a una sección aterriza
+    // justo bajo la cabecera, sin dejar una franja de la portada.
+    var portada = uno('[data-portada]');
+    if (fija && portada) {
+      new IntersectionObserver(function (entradas) {
+        var paso = !entradas[0].isIntersecting && entradas[0].boundingClientRect.top < 0;
+        fija.setAttribute('data-visible', String(paso));
+        fija.inert = !paso;
+      }, { rootMargin: '-80px 0px 0px 0px' }).observe(portada);
+    }
+  }
+
+  // ---------- Capa del dueño ----------
+  if (panel && typeof panel.showModal === 'function') {
+    var abiertoEn = 0;
+    var empezoFuera = false;
+    var abrirPanel = function () {
+      if (panel.open) return;
+      // Al quitarle el desplazamiento a la página desaparece su barra y todo se correría unos píxeles: se le deja
+      // ese mismo ancho como margen (ver --hueco-barra en estilos.css). En un teléfono la barra no ocupa sitio: 0.
+      raiz.style.setProperty('--hueco-barra', Math.max(0, window.innerWidth - raiz.clientWidth) + 'px');
+      panel.showModal();
+      abiertoEn = Date.now();
+      raiz.style.overflow = 'hidden';
+      pintarBarra();
+    };
+    todos('[data-abre-incluye]').forEach(function (a) {
+      a.addEventListener('click', function (ev) { ev.preventDefault(); abrirPanel(); });
+    });
+    // El punto cae fuera del panel, sobre el fondo atenuado.
+    var fueraDelPanel = function (ev) {
+      var r = panel.getBoundingClientRect();
+      return ev.clientX < r.left || ev.clientX > r.right || ev.clientY < r.top || ev.clientY > r.bottom;
+    };
+    panel.addEventListener('pointerdown', function (ev) { empezoFuera = fueraDelPanel(ev); });
+    // Un clic en el fondo no empieza una selección de texto (pasaba con el segundo clic de un doble clic).
+    panel.addEventListener('mousedown', function (ev) { if (fueraDelPanel(ev)) ev.preventDefault(); });
+    panel.addEventListener('click', function (ev) {
+      // Recién abierto, el panel no atiende clics: el segundo toque de un doble toque caería sobre lo que quedó
+      // debajo del dedo. En celular eso puede ser «Escribirle a Angel por WhatsApp».
+      if (Date.now() - abiertoEn < 500) { ev.preventDefault(); ev.stopPropagation(); return; }
+      // Se cierra al tocar fuera, pero solo si el toque empezó y terminó fuera: seleccionar un texto del panel y
+      // soltar afuera no lo cierra, ni arrastrar desde afuera hacia adentro.
+      if (empezoFuera && fueraDelPanel(ev)) panel.close();
+      empezoFuera = false;
+    }, true);
+    panel.addEventListener('close', function () {
+      raiz.style.overflow = '';
+      raiz.style.removeProperty('--hueco-barra');
+      pintarBarra();
+      if (window.location.hash === '#incluye' && window.history.replaceState) {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    });
+    // Un enlace directo a #incluye abre el panel.
+    var abrirSiLoPide = function () { if (window.location.hash === '#incluye') abrirPanel(); };
+    window.addEventListener('hashchange', abrirSiLoPide);
+    abrirSiLoPide();
+  } else if (panel) {
+    raiz.classList.add('sin-panel'); // navegador sin <dialog>: se lee como una sección
+  }
+
+  // ---------- Preguntas: una abierta a la vez (para navegadores que no agrupan <details name>) ----------
+  var preguntas = todos('details.pregunta');
+  preguntas.forEach(function (d) {
+    d.addEventListener('toggle', function () {
+      if (!d.open) return;
+      preguntas.forEach(function (otra) { if (otra !== d) otra.open = false; });
+    });
+  });
+
+  // ---------- Videos ----------
+  // El clip no baja hasta que se toca el botón. Mientras baja, el botón late; cuando empieza, el video cubre la imagen, con
+  // los controles del navegador. De uno en uno. Al terminar vuelve la imagen. Si el navegador no deja reproducirlo solo, quedan
+  // sus controles a la vista, y si el archivo no se puede reproducir ahí, se abre aparte: el botón nunca queda muerto. El foco
+  // se mueve sin desplazar la página: quien siguió bajando no debe volver de golpe al video.
+  var videos = [];
+  todos('[data-video]').forEach(function (marco) {
+    var enlace = uno('.video__reproducir', marco);
+    var volver = function () {
+      var clip = uno('video', marco);
+      if (clip) clip.parentNode.removeChild(clip);
+      marco.removeAttribute('data-reproduciendo');
+      marco.removeAttribute('data-cargando');
+      enlace.hidden = false;
+    };
+    videos.push({ marco: marco, volver: volver });
+    enlace.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      if (uno('video', marco)) return; // un segundo toque mientras baja
+      videos.forEach(function (otro) {
+        var suyo = otro.marco !== marco && uno('video', otro.marco);
+        if (!suyo) return;
+        if (otro.marco.hasAttribute('data-cargando')) otro.volver(); else suyo.pause();
+      });
+      var clip = doc.createElement('video');
+      var mostrar = function () {
+        if (marco.hasAttribute('data-reproduciendo')) return;
+        marco.removeAttribute('data-cargando');
+        marco.setAttribute('data-reproduciendo', '');
+        var tenia = doc.activeElement === enlace;
+        enlace.hidden = true;
+        if (tenia) clip.focus({ preventScroll: true });
+      };
+      clip.className = 'video__clip';
+      clip.muted = true;
+      clip.controls = true;
+      clip.preload = 'auto';
+      clip.setAttribute('playsinline', '');
+      clip.setAttribute('aria-label', uno('.video__titulo', marco.parentNode).textContent);
+      clip.addEventListener('playing', mostrar);
+      clip.addEventListener('ended', function () {
+        var tenia = doc.activeElement === clip;
+        volver();
+        if (tenia) enlace.focus({ preventScroll: true });
+      });
+      clip.addEventListener('error', function () { volver(); window.open(enlace.href, '_blank', 'noopener'); });
+      clip.src = enlace.getAttribute('href');
+      marco.setAttribute('data-cargando', '');
+      marco.appendChild(clip);
+      var intento = clip.play();
+      if (intento && intento.catch) intento.catch(mostrar);
+    });
+  });
+
+  // ---------- Movimiento al entrar en pantalla ----------
+  // Una sola vez por elemento. La clase se pone aquí y no en la hoja de estilos: si este código no corre, o si la
+  // persona pidió menos movimiento, nada empieza oculto. Qué se mueve y por qué: página 08 del Figma.
+  if (hayObservador && !sinMovimiento) {
+    raiz.classList.add('animar');
+    var aparece = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('a-la-vista');
+        aparece.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -10% 0px' });
+    todos('.icono, .promesas, .banda-foto, .foto, .video__marco, .caso__panel:nth-child(2)').forEach(function (el) { aparece.observe(el); });
+  }
+
+  // ---------- Arranque ----------
+  pintarHorario();
+  pintarBarra();
+  medirBarra(); // ya con su nota, antes de la primera pintura
+
+  // El estado cambia solo cuando el consultorio abre o cierra con la página abierta.
+  function refrescarHorario() {
+    if (JSON.stringify(R.estadoDelHorario(ahora())) !== JSON.stringify(horario)) pintarHorario();
+  }
+  window.setInterval(refrescarHorario, 30000);
+  doc.addEventListener('visibilitychange', function () { if (!doc.hidden) refrescarHorario(); });
+})();
+</script>
+</body>
+</html>
