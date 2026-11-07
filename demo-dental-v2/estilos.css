@@ -730,61 +730,91 @@ html.alto-corto .portada__bajada, html.alto-corto .portada__direccion { display:
   .video--grande { grid-column: 1; grid-row: 1 / span 2; }
 }
 
-/* ---------- Quién te atiende ---------- */
+/* ---------- Quién te atiende ----------
+   Una doctora le habla al paciente y el resto del equipo queda al lado. Celular: una columna. Tablet: el retrato al lado de
+   la nota. Computadora: el retrato ocupa toda la altura y el título pasa a su derecha. Esos dos cortes van en em: con la
+   letra agrandada, la sección sigue en una columna. */
 .equipo {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 24px;
 }
-.personas {
-  order: 2;
+.equipo__retrato {
+  width: 100%;
+  aspect-ratio: 342 / 340;
+  max-height: 480px;
+  background: var(--superficie-clara);
+}
+.equipo__retrato .foto__imagen { object-position: 50% 15%; } /* el recorte nunca le corta la cabeza */
+.equipo__retrato .etiqueta { top: auto; bottom: 12px; } /* abajo, sobre el uniforme: arriba taparía la cara */
+.equipo__voz { display: flex; flex-direction: column; gap: 24px; }
+.equipo__nota {
+  margin: 0;
+  font: var(--titular-6);
+  letter-spacing: var(--tracking-6);
+  text-wrap: pretty;
+}
+.equipo__firma { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.equipo__datos { display: flex; flex-direction: column; gap: 2px; }
+.equipo__boton { width: 100%; }
+.equipo__resto {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  padding-top: 24px;
+  border-top: 1px solid var(--borde-suave);
 }
-.persona {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.persona__inicial {
-  display: grid;
-  place-items: center;
+.equipo__comprobar { font: var(--cuerpo-chico); color: var(--texto-secundario); text-wrap: pretty; }
+.equipo__comprobar a { color: var(--texto-marca); text-underline-offset: 2px; }
+.personas { display: flex; flex-direction: column; gap: 20px; }
+.persona { display: flex; align-items: flex-start; gap: 16px; }
+.persona__retrato {
   flex: none;
-  width: 64px;
-  height: 64px;
-  border-radius: 24px;
+  width: 72px;
+  height: 72px;
+  overflow: hidden;
+  border-radius: var(--radio-20);
   background: var(--superficie-clara);
-  color: var(--texto-marca);
-  font: var(--titular-5);
-  font-size: min(2rem, 44px); /* el cuadro mide 64 px fijos: con la letra agrandada la inicial no se sale */
-  letter-spacing: var(--tracking-5);
 }
+.persona__retrato img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .persona__datos { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.persona__nombre { font: var(--titular-7); letter-spacing: var(--tracking-7); }
-.persona__especialidad { font: var(--cuerpo-chico); color: var(--texto-secundario); }
-/* Crece con la pantalla, sin perder la proporción, hasta el ancho con que se dibujó en tablet. */
-.foto {
-  order: 1;
-  width: 100%;
-  max-width: 672px;
-  aspect-ratio: 342 / 200;
-  background: var(--superficie-clara);
-}
+.persona__nombre { margin: 0; font: var(--titular-7); letter-spacing: var(--tracking-7); }
+.persona__dato { font: var(--cuerpo-chico); color: var(--texto-secundario); }
+.persona__enlace { width: max-content; max-width: 100%; margin-top: 4px; }
 
-@media (min-width: 768px) {
-  .personas { order: 1; flex-direction: row; flex-wrap: wrap; gap: 24px 32px; }
-  .foto { order: 2; aspect-ratio: 672 / 378; }
-}
-@media (min-width: 1024px) {
+@media (min-width: 48em) {
   .equipo {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 64px;
+    grid-template-columns: minmax(0, 280fr) minmax(0, 360fr);
+    grid-template-areas:
+      "cabeza cabeza"
+      "retrato voz"
+      "resto resto"
+      "comprobar comprobar";
+    gap: 32px;
   }
-  .personas { flex-direction: column; flex-wrap: nowrap; gap: 28px; }
-  .foto { flex: none; width: 560px; aspect-ratio: 560 / 320; }
+  .equipo__cabeza { grid-area: cabeza; }
+  .equipo__retrato { grid-area: retrato; aspect-ratio: auto; max-height: none; min-height: 320px; }
+  .equipo__voz { grid-area: voz; gap: 32px; }
+  .equipo__boton { width: auto; }
+  .equipo__resto { grid-area: resto; gap: 16px; padding-top: 32px; }
+  .equipo__comprobar { grid-area: comprobar; }
+  .personas { flex-direction: row; gap: 32px; }
+  .persona { flex: 1 1 0; min-width: 0; }
+}
+@media (min-width: 64em) {
+  .equipo {
+    grid-template-columns: minmax(0, 520fr) minmax(0, 616fr);
+    grid-template-areas:
+      "retrato cabeza"
+      "retrato voz"
+      "retrato resto"
+      "retrato comprobar";
+    column-gap: 64px;
+  }
+  .equipo__retrato { min-height: 0; }
+}
+@media (min-width: 75em) {
+  .equipo__nota { font: var(--titular-5); letter-spacing: var(--tracking-5); }
 }
 
 /* ---------- Antes y después ----------

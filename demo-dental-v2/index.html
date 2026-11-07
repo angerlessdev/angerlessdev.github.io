@@ -262,35 +262,62 @@
 </section>
 
 <section class="seccion seccion--suave" id="equipo" aria-labelledby="titulo-equipo">
-  <div class="contenedor seccion__pila">
-    <div class="seccion__titulo">
+  <div class="contenedor equipo">
+    <div class="seccion__titulo equipo__cabeza">
       <h2 id="titulo-equipo">Quién te atiende</h2>
-      <p class="seccion__bajada">Tres especialistas en un solo consultorio.</p>
       <p class="etiqueta etiqueta--claro">Equipo de ejemplo</p>
     </div>
-    <div class="equipo">
+    <figure class="foto equipo__retrato">
+      <picture>
+        <source type="image/avif" srcset="img/retrato-lucia-520.avif 520w, img/retrato-lucia-780.avif 780w, img/retrato-lucia-1024.avif 1024w" sizes="(min-width: 64em) 580px, (min-width: 48em) 38vw, calc(100vw - 48px)">
+        <img class="foto__imagen" src="img/retrato-lucia-520.webp" srcset="img/retrato-lucia-520.webp 520w, img/retrato-lucia-780.webp 780w, img/retrato-lucia-1024.webp 1024w" sizes="(min-width: 64em) 580px, (min-width: 48em) 38vw, calc(100vw - 48px)" width="1024" height="1280" alt="Retrato generado con IA de una dentista con uniforme verde, en un consultorio luminoso." loading="lazy" decoding="async">
+      </picture>
+      <figcaption class="etiqueta etiqueta--foto">Retratos generados con IA</figcaption>
+    </figure>
+    <div class="equipo__voz">
+      <blockquote class="equipo__nota">«Muchos llegan con miedo, o después de años sin venir. Aquí nadie te va a retar. Primero conversamos y, antes de tocar nada, te digo lo que veo y cuánto cuesta.»</blockquote>
+      <div class="equipo__firma">
+        <div class="equipo__datos">
+          <h3 class="persona__nombre">Dra. Lucía</h3>
+          <p class="persona__dato">Odontología general y estética</p>
+          <p class="persona__dato">Colegiatura 00000</p>
+        </div>
+        <a class="boton boton--primario boton--sobre-claro boton--base equipo__boton" href="https://wa.me/51993339301?text=Prueba%20desde%20la%20muestra%20de%20Dental%20Morro.%0AHola%2C%20quiero%20una%20cita%20en%20Dental%20Morro%20con%20la%20Dra.%20Luc%C3%ADa.%0A%C2%BFMe%20pueden%20atender%3F" target="_blank" rel="noopener">
+          <svg class="boton__icono" aria-hidden="true" focusable="false"><use href="#ico-wa"/></svg>
+          <span>Pedir cita con la Dra. Lucía<span class="oculto"> (se abre en otra pestaña)</span></span>
+        </a>
+      </div>
+    </div>
+    <div class="equipo__resto">
+      <h3 class="persona__nombre">También te atienden</h3>
       <ul class="personas" role="list">
         <li class="persona">
-          <span class="persona__inicial" aria-hidden="true">L</span>
-          <div class="persona__datos"><h3 class="persona__nombre">Dra. Lucía</h3><p class="persona__especialidad">Odontología general y estética</p></div>
+          <picture class="persona__retrato">
+            <source type="image/avif" srcset="img/retrato-marco-72.avif 72w, img/retrato-marco-144.avif 144w, img/retrato-marco-216.avif 216w" sizes="72px">
+            <img src="img/retrato-marco-144.webp" srcset="img/retrato-marco-72.webp 72w, img/retrato-marco-144.webp 144w, img/retrato-marco-216.webp 216w" sizes="72px" width="72" height="72" alt="Retrato generado con IA de un dentista con uniforme verde." loading="lazy" decoding="async">
+          </picture>
+          <div class="persona__datos">
+            <h4 class="persona__nombre">Dr. Marco</h4>
+            <p class="persona__dato">Ortodoncia (brackets) e implantes</p>
+            <p class="persona__dato">Colegiatura 00000</p>
+            <a class="enlace persona__enlace" href="https://wa.me/51993339301?text=Prueba%20desde%20la%20muestra%20de%20Dental%20Morro.%0AHola%2C%20quiero%20una%20cita%20en%20Dental%20Morro%20con%20el%20Dr.%20Marco.%0A%C2%BFMe%20pueden%20atender%3F" target="_blank" rel="noopener">Pedir cita<span class="oculto"> con el Dr. Marco (se abre en otra pestaña)</span></a>
+          </div>
         </li>
         <li class="persona">
-          <span class="persona__inicial" aria-hidden="true">M</span>
-          <div class="persona__datos"><h3 class="persona__nombre">Dr. Marco</h3><p class="persona__especialidad">Ortodoncia e implantes</p></div>
-        </li>
-        <li class="persona">
-          <span class="persona__inicial" aria-hidden="true">P</span>
-          <div class="persona__datos"><h3 class="persona__nombre">Dra. Paola</h3><p class="persona__especialidad">Odontopediatría y endodoncia</p></div>
+          <picture class="persona__retrato">
+            <source type="image/avif" srcset="img/retrato-paola-72.avif 72w, img/retrato-paola-144.avif 144w, img/retrato-paola-216.avif 216w" sizes="72px">
+            <img src="img/retrato-paola-144.webp" srcset="img/retrato-paola-72.webp 72w, img/retrato-paola-144.webp 144w, img/retrato-paola-216.webp 216w" sizes="72px" width="72" height="72" alt="Retrato generado con IA de una dentista con uniforme verde." loading="lazy" decoding="async">
+          </picture>
+          <div class="persona__datos">
+            <h4 class="persona__nombre">Dra. Paola</h4>
+            <p class="persona__dato">Odontopediatría (niños) y endodoncia (conductos)</p>
+            <p class="persona__dato">Colegiatura 00000</p>
+            <a class="enlace persona__enlace" href="https://wa.me/51993339301?text=Prueba%20desde%20la%20muestra%20de%20Dental%20Morro.%0AHola%2C%20quiero%20una%20cita%20en%20Dental%20Morro%20con%20la%20Dra.%20Paola.%0A%C2%BFMe%20pueden%20atender%3F" target="_blank" rel="noopener">Pedir cita<span class="oculto"> con la Dra. Paola (se abre en otra pestaña)</span></a>
+          </div>
         </li>
       </ul>
-      <figure class="foto">
-        <picture>
-          <source type="image/avif" srcset="img/consultorio-640.avif 640w, img/consultorio-960.avif 960w, img/consultorio-1280.avif 1280w" sizes="(min-width: 1200px) 560px, min(100vw - 48px, 672px)">
-          <img class="foto__imagen" src="img/consultorio-640.webp" srcset="img/consultorio-640.webp 640w, img/consultorio-960.webp 960w, img/consultorio-1280.webp 1280w" sizes="(min-width: 1200px) 560px, min(100vw - 48px, 672px)" width="1280" height="737" alt="Una asistente con mascarilla y guantes prepara la mesa de instrumentos, en una sala clara." loading="lazy" decoding="async">
-        </picture>
-        <figcaption class="etiqueta etiqueta--foto">Foto referencial</figcaption>
-      </figure>
     </div>
+    <p class="equipo__comprobar">Cada colegiatura se puede comprobar en el <a href="https://ccdp.org.pe/buscador-nacional" target="_blank" rel="noopener">Buscador Nacional de Cirujanos Dentistas<span class="oculto"> (se abre en otra pestaña)</span></a>.</p>
   </div>
 </section>
 
@@ -500,7 +527,7 @@
       <p class="incluye__plazo">Precio cerrado. Lista en 5 a 7 días hábiles desde que llegan tu primer pago, tus fotos y tus textos.</p>
     </div>
     <ul class="incluye__lista" role="list">
-      <li>Con tu nombre, tus fotos, tus videos, tus casos, tus tratamientos, tu horario y las reseñas reales de tu ficha de Google.</li>
+      <li>Con tu nombre, tu equipo, tus fotos, tus videos, tus casos, tus tratamientos, tu horario y las reseñas reales de tu ficha de Google.</li>
       <li>El paciente toca WhatsApp y te llega un mensaje ya escrito, con el tratamiento que le interesa.</li>
       <li>La cita llega a tu WhatsApp de siempre. No instalas nada.</li>
       <li>Se ve bien y abre rápido en celular, tablet y computadora. Te entrego la medición de velocidad de Google.</li>
@@ -508,6 +535,7 @@
       <li>Sabrás cuántas personas entran y cuántas tocan el botón de WhatsApp.</li>
       <li>Dos rondas de cambios y 30 días de soporte después de publicar.</li>
       <li>Tú eliges qué prometer: los textos de esta muestra son un ejemplo.</li>
+      <li>Los retratos de esta muestra están generados con IA. En tu web van las fotos de tu equipo, con su permiso.</li>
     </ul>
     <ul class="incluye__condiciones" role="list">
       <li><strong>Pago.</strong> La mitad al empezar y la mitad al publicar, con recibo por honorarios.</li>
@@ -564,7 +592,8 @@
             <li>Carillas: <a href="https://commons.wikimedia.org/wiki/File:Faccette_estetiche_confronto_prima_e_dopo.jpg" target="_blank" rel="noopener">«Faccette estetiche confronto prima e dopo»<span class="oculto"> (se abre en otra pestaña)</span></a>, de Yvul, <a class="pie__licencia" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es" target="_blank" rel="noopener">CC&nbsp;BY-SA&nbsp;4.0<span class="oculto"> (se abre en otra pestaña)</span></a>.</li>
             <li>Limpieza: <a href="https://commons.wikimedia.org/wiki/File:Gingivitis-before-and-after-3.jpg" target="_blank" rel="noopener">«Gingivitis before and after»<span class="oculto"> (se abre en otra pestaña)</span></a>, de Onetimeuseaccount, <a class="pie__licencia" href="https://creativecommons.org/publicdomain/zero/1.0/deed.es" target="_blank" rel="noopener">dominio público (CC0)<span class="oculto"> (se abre en otra pestaña)</span></a>.</li>
             <li>Implantes: <a href="https://commons.wikimedia.org/wiki/File:Caso_real_implantes_dentales_carga_inmediata_Jesus_Palma_Ortiz2.jpg" target="_blank" rel="noopener">caso de implantes<span class="oculto"> (se abre en otra pestaña)</span></a>, de GrupoMedicodental, <a class="pie__licencia" href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="noopener">CC&nbsp;BY&nbsp;4.0<span class="oculto"> (se abre en otra pestaña)</span></a>.</li>
-            <li>Videos: <a href="https://mixkit.co/free-stock-video/checking-dental-x-rays-12140/" target="_blank" rel="noopener">«Checking dental x-rays»<span class="oculto"> (se abre en otra pestaña)</span></a>, <a href="https://mixkit.co/free-stock-video/dentist-preparing-to-work-12145/" target="_blank" rel="noopener">«Dentist preparing to work»<span class="oculto"> (se abre en otra pestaña)</span></a> y <a href="https://mixkit.co/free-stock-video/dentist-checking-teeth-12146/" target="_blank" rel="noopener">«Dentist checking teeth»<span class="oculto"> (se abre en otra pestaña)</span></a>; la foto de «Quién te atiende» es un cuadro de <a href="https://mixkit.co/free-stock-video/dentists-in-office-12149/" target="_blank" rel="noopener">«Dentists in office»<span class="oculto"> (se abre en otra pestaña)</span></a>. Todos de Mixkit, con su <a class="pie__licencia" href="https://mixkit.co/license/#videoFree" target="_blank" rel="noopener">licencia gratuita de video<span class="oculto"> (se abre en otra pestaña)</span></a>.</li>
+            <li>Videos: <a href="https://mixkit.co/free-stock-video/checking-dental-x-rays-12140/" target="_blank" rel="noopener">«Checking dental x-rays»<span class="oculto"> (se abre en otra pestaña)</span></a>, <a href="https://mixkit.co/free-stock-video/dentist-preparing-to-work-12145/" target="_blank" rel="noopener">«Dentist preparing to work»<span class="oculto"> (se abre en otra pestaña)</span></a> y <a href="https://mixkit.co/free-stock-video/dentist-checking-teeth-12146/" target="_blank" rel="noopener">«Dentist checking teeth»<span class="oculto"> (se abre en otra pestaña)</span></a>. Todos de Mixkit, con su <a class="pie__licencia" href="https://mixkit.co/license/#videoFree" target="_blank" rel="noopener">licencia gratuita de video<span class="oculto"> (se abre en otra pestaña)</span></a>.</li>
+            <li>Retratos del equipo: generados con IA; no son personas reales.</li>
           </ul>
         </div>
       </details>
@@ -810,11 +839,12 @@
   var panel = uno('#incluye');
   var portadaALaVista = hayObservador; // el botón de la portada está en pantalla
   var cierreALaVista = false; // el botón del cierre está en pantalla
+  var doctoraALaVista = false; // el botón de «Quién te atiende» está en pantalla
 
-  // La barra entra cuando el botón de la portada sale de la pantalla y se esconde con el del cierre a la vista: dos
-  // botones iguales a la vez confunden. Sin observador se queda puesta, para que siempre haya un botón a mano.
+  // La barra entra cuando el botón de la portada sale de la pantalla y se esconde con el del cierre o el de la doctora a
+  // la vista: dos botones grandes a la vez confunden. Sin observador se queda puesta, para que siempre haya un botón a mano.
   function pintarBarra() {
-    if (barra) barra.setAttribute('data-oculta', String(portadaALaVista || cierreALaVista || !!(panel && panel.open)));
+    if (barra) barra.setAttribute('data-oculta', String(portadaALaVista || cierreALaVista || doctoraALaVista || !!(panel && panel.open)));
   }
 
   // La barra cambia de alto: con el consultorio cerrado lleva una nota, que en pantallas angostas ocupa dos líneas.
@@ -840,6 +870,13 @@
         cierreALaVista = entradas[0].isIntersecting;
         pintarBarra();
       }, { rootMargin: '0px 0px -78px 0px' }).observe(botonCierre);
+    }
+    var botonDoctora = uno('.equipo__boton');
+    if (barra && botonDoctora) {
+      new IntersectionObserver(function (entradas) {
+        doctoraALaVista = entradas[0].isIntersecting;
+        pintarBarra();
+      }, { rootMargin: '0px 0px -78px 0px' }).observe(botonDoctora);
     }
     // La cabecera fija entra cuando la portada ya pasó por debajo de ella (mide 79 px): así un enlace a una sección aterriza
     // justo bajo la cabecera, sin dejar una franja de la portada.
