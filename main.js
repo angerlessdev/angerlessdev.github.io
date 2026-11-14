@@ -1,29 +1,23 @@
-// Enciende el tablero al cargar y muestra la barra de WhatsApp en el celular al pasar el hero.
+// En celular, la barra con el botón de WhatsApp aparece al pasar la portada y se esconde al llegar a contacto:
+// así nunca hay dos botones iguales a la vista. Sin este archivo la página funciona igual, solo que sin la barra.
 (function () {
-  var tablero = document.querySelector('.tablero');
-  if (tablero) {
-    window.requestAnimationFrame(function () { tablero.classList.add('encendido'); });
-  }
-
-  var barra = document.querySelector('.barra-wa');
-  var hero = document.querySelector('.hero');
+  var barra = document.querySelector('.barra');
+  var portada = document.querySelector('.portada');
   var contacto = document.getElementById('contacto');
-  if (!barra || !hero || !('IntersectionObserver' in window)) return;
+  if (!barra || !portada || !('IntersectionObserver' in window)) return;
 
-  var heroVisible = true;
-  var contactoVisible = false;
-  function actualizar() {
-    var mostrar = !heroVisible && !contactoVisible;
-    if (mostrar) barra.removeAttribute('hidden'); else barra.setAttribute('hidden', '');
-  }
+  var enPortada = true;
+  var enContacto = false;
+  function pintar() { barra.hidden = enPortada || enContacto; }
+
   new IntersectionObserver(function (entradas) {
-    heroVisible = entradas[0].isIntersecting;
-    actualizar();
-  }, { threshold: 0.15 }).observe(hero);
+    enPortada = entradas[0].isIntersecting;
+    pintar();
+  }, { threshold: 0.15 }).observe(portada);
   if (contacto) {
     new IntersectionObserver(function (entradas) {
-      contactoVisible = entradas[0].isIntersecting;
-      actualizar();
+      enContacto = entradas[0].isIntersecting;
+      pintar();
     }, { threshold: 0.2 }).observe(contacto);
   }
 })();
